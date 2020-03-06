@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-//import telran.util.Array.ArrayIterator;
 
 public class IndexedLinkedList<T> implements IndexedList<T>{
 
@@ -54,19 +53,23 @@ public class IndexedLinkedList<T> implements IndexedList<T>{
 				head = newNode;
 				newNode.next = nextNode;
 				nextNode.prev = newNode;
+				size++;
 			}else if (index==size) {
-				tail.next = newNode;
-				tail = newNode;
-				newNode.prev = nextNode;
-				nextNode.next = newNode;
+//				tail.next = newNode;
+//				tail = newNode;
+//				newNode.prev = nextNode;
+//				nextNode.next = newNode;
+				add(obj);
 			}else {
-				nextNode.prev.next = newNode;
-				newNode.next = nextNode;					
-				newNode.prev = nextNode.prev;
-				nextNode.prev = newNode;	
+				if(isValidIndex(index)) {					
+					nextNode.prev.next = newNode;
+					newNode.next = nextNode;					
+					newNode.prev = nextNode.prev;
+					nextNode.prev = newNode;	
+					size++;
+				}
 			}
 
-			size++;
 			return true;
 		}else {
 			return false;
