@@ -115,7 +115,7 @@ public class IndexedLinkedList<T> implements IndexedList<T>{
 	public T get(int ind) {
 		T res = null;
 		if(isValidIndex( ind)) {
-			res = ind<size/2 ? getFromLeft(ind).obj : getFromRight(ind).obj;
+			res = find(ind).obj;
 		}
 		return res;
 //		return null;
