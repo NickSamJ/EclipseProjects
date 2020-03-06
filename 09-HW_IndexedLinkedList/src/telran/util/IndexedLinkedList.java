@@ -43,38 +43,30 @@ public class IndexedLinkedList<T> implements IndexedList<T>{
 	// Homework
 	@Override
 	public boolean add(int index, T obj) {
-		if (index>=0 && index <=size) {
-			Node<T> newNode = new Node<>(obj);
-			
-			Node<T> nextNode = find(index);
-			
-			if (index==0) {
-				head.prev = newNode;
-				head = newNode;
-				newNode.next = nextNode;
-				nextNode.prev = newNode;
-				size++;
-			}else if (index==size) {
-//				tail.next = newNode;
-//				tail = newNode;
-//				newNode.prev = nextNode;
-//				nextNode.next = newNode;
-				add(obj);
-			}else {
-				if(isValidIndex(index)) {					
-					nextNode.prev.next = newNode;
-					newNode.next = nextNode;					
-					newNode.prev = nextNode.prev;
-					nextNode.prev = newNode;	
-					size++;
-				}
-			}
-
+		Node<T> newNode = new Node<>(obj);
+		
+		Node<T> nextNode = find(index);
+		
+		if (index==0) {
+			head.prev = newNode;
+			head = newNode;
+			newNode.next = nextNode;
+			nextNode.prev = newNode;
+			size++;
 			return true;
-		}else {
+		}else if (index==size) {
+			add(obj);
+			return true;
+		}else if (isValidIndex(index)) {
+				nextNode.prev.next = newNode;
+				newNode.next = nextNode;					
+				newNode.prev = nextNode.prev;
+				nextNode.prev = newNode;	
+				size++;
+				return true;
+		} else {
 			return false;
 		}
-		
 	}
 
 	@Override
