@@ -305,7 +305,7 @@ public class IndexedLinkedList<T> implements IndexedList<T>{
 			return res;
 		}
 		
-		@Override
+		@Override 
 		public void remove() {
 //			IndexedLinkedList.this.remove(--currentIndex);
 			if (current == null) {
