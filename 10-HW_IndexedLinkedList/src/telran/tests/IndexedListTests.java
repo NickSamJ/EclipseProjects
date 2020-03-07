@@ -113,21 +113,17 @@ class IndexedListTests {
 	}
 	@Test
 	void testBinarySearch() {
-		try {
-			String stringsNaturalOrder[]=
-				{"abcd","lm", "lmnopr","x","y","z"};
-			String stringsLengthOrder[]=
-				{"x","y","z","lm","abcd", "lmnopr"};
-			Comparator<String> compLength = new StringLengthComparator();
-			IndexedList<String> stringsNatural = getListStrings(stringsNaturalOrder);
-			IndexedList<String> stringsLength = getListStrings(stringsLengthOrder);
-			assertEquals(-3, stringsNatural.binarySearch("lmn"));
-			assertEquals(1, stringsNatural.binarySearch("lm"));
-			assertEquals(-5, stringsLength.binarySearch("lmn", compLength));
-			assertEquals(3, stringsLength.binarySearch("lm", compLength ));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String stringsNaturalOrder[]=
+			{"abcd","lm", "lmnopr","x","y","z"};
+		String stringsLengthOrder[]=
+			{"x","y","z","lm","abcd", "lmnopr"};
+		Comparator<String> compLength = new StringLengthComparator();
+		IndexedList<String> stringsNatural = getListStrings(stringsNaturalOrder);
+		IndexedList<String> stringsLength = getListStrings(stringsLengthOrder);
+		assertEquals(-3, stringsNatural.binarySearch("lmn"));
+		assertEquals(1, stringsNatural.binarySearch("lm"));
+		assertEquals(-5, stringsLength.binarySearch("lmn", compLength));
+		assertEquals(3, stringsLength.binarySearch("lm", compLength ));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -152,16 +148,11 @@ class IndexedListTests {
 	}
 	@Test
 	void testFilter() {
-		try {
-			int expected[] = {10, -8, 70, 30};
-			IndexedList<Integer> listNoEven =
-					listNumbers.filter(new EvenNumbersPredicate());
-			int actualNumbers[] = getActualNumbers(listNoEven);
-			assertArrayEquals(expected, actualNumbers);	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		int expected[] = {10, -8, 70, 30};
+		IndexedList<Integer> listNoEven =
+				listNumbers.filter(new EvenNumbersPredicate());
+		int actualNumbers[] = getActualNumbers(listNoEven);
+		assertArrayEquals(expected, actualNumbers);
 	}
 	@Test
 	void testRemoveIf() {
@@ -182,17 +173,13 @@ class IndexedListTests {
 	 * even numbers should be sorted in the descending order
 	 */
 	void testSortingEvenOdd( ) {
-		try {
-			// {10, -8, 70, 75, 30}
-			listNumbers.add(73);
-			listNumbers.add(3);
-			int []expected = {3, 73, 75, 70, 30, 10, -8};
-			listNumbers.sort(new EvenOddComparator());
-			assertArrayEquals(expected,
-					getActualNumbers(listNumbers));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		// {10, -8, 70, 75, 30}
+		listNumbers.add(73);
+		listNumbers.add(3);
+		int []expected = {3, 73, 75, 70, 30, 10, -8};
+		listNumbers.sort(new EvenOddComparator());
+		assertArrayEquals(expected,
+				getActualNumbers(listNumbers));
 	}
 	@Test
 	void testRemoveObject() {

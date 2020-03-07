@@ -209,11 +209,25 @@ public class IndexedLinkedList<T> implements IndexedList<T>{
 	@Override
 	public Object remove(Object pattern) {
 		T res = null;
-		int index = this.indexOf(pattern);
+		int index = indexOf(pattern);
 		if(index>=0) {
-			this.remove(index);
+			res = remove(index);
 		}
 		return res;
+		
+		/*
+//		 * Optimized realization
+//		 */
+//		Node<T> current = head;
+//		while(current!=null && !current.obj.equals(pattern)){
+//			current = current.next;
+//		}
+//		Object res = null;
+//		if (current!=null) {
+//			res=current.obj;
+//			remove(current);
+//		}
+//		return res;
 	}
 
 	@Override
@@ -275,27 +289,35 @@ public class IndexedLinkedList<T> implements IndexedList<T>{
 		}while (!flSort);
 	}
 	
-	private class ArrayIterator<T> implements Iterator<T> {
+	private class ListIterator<T> implements Iterator<T> {
 		int currentIndex = 0;
+		Node<T> current = (Node<T>) head;
 		
 		@Override
 		public boolean hasNext() {
-			return currentIndex<size;
+			return current!=null;
 		}
 
 		@Override
 		public T next() {
-			return (T)IndexedLinkedList.this.find(currentIndex++).obj;
+			T res = current.obj;
+			current = current.next;
+			return res;
 		}
 		
 		@Override
 		public void remove() {
-			IndexedLinkedList.this.remove(--currentIndex);
+//			IndexedLinkedList.this.remove(--currentIndex);
+			if (current == null) {
+				IndexedLinkedList.this.remove(current.obj);
+			}else{
+				IndexedLinkedList.this.remove(current.prev.obj);
+			}
 		}
 	}
 	@Override
 	public Iterator<T> iterator() {
-		return new ArrayIterator();
+		return new ListIterator();
 	}
 
 }
