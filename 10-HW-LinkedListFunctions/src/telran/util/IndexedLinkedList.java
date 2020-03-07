@@ -331,7 +331,6 @@ public IndexedLinkedList(int dummy) {
 //			array.add(t);
 //		}
 //		array.sort();
-  
 
 		Node<T> current = tail;
 		for(T item : array) {
