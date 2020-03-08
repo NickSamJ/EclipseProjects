@@ -130,13 +130,12 @@ public IndexedLinkedList(int dummy) {
 
 	@Override
 	public int binarySearch(T pattern, Comparator<T> comp) {
-//		if(array!=null) {
+		if(array==null) {
 			sort(comp);
-//		}
+		}
 		
 
-		int res = Arrays.binarySearch(array, pattern, (Comparator<T>)Comparator.naturalOrder());
-		array=null;
+		int res = Arrays.binarySearch(array, pattern );
 		return res;
 	}
 
@@ -320,15 +319,13 @@ public IndexedLinkedList(int dummy) {
 
 	@Override
 	public void sort(Comparator<T> comp) {
-		@SuppressWarnings("unchecked")
-		T[] tempArr = (T[]) new Object[size];
+		array = (T[]) new Object[size];
         Node<T> current = head;
         for (int  i= 0; i < size; i++) {
-			tempArr[i] = current.obj;
+			array[i] = current.obj;
 			current = current.next;
 		}
 
-        array = tempArr;
         Arrays.sort(array, comp);
 
 		current = head;

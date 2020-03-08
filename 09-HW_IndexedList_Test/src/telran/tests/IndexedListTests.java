@@ -89,12 +89,11 @@ class IndexedListTests {
 	}
 	@SuppressWarnings("unchecked")
 	@Test
-	void testSorting() {
+	void testSorting() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		
 		Person personMoshe = new Person(123, "Moshe", 1980);
 		Person personVova = new Person(100, "Vova", 1970);
 		
-		try {
 			IndexedList<Person> listPersons = listNumbers.getClass() //getting object of Class
 				.getConstructor() //getting constructor by default
 				.newInstance();
@@ -106,9 +105,6 @@ class IndexedListTests {
 			listPersons.sort(new PersonAgeComparator());
 			assertEquals(personVova, listPersons.get(1));
 			assertEquals(personMoshe, listPersons.get(0));
-		} catch (Exception e) {
-//			e.printStackTrace();
-		}
 		
 	}
 	@Test
@@ -122,9 +118,12 @@ class IndexedListTests {
 			IndexedList<String> stringsLength = getListStrings(stringsLengthOrder);
 			assertEquals(-3, stringsNatural.binarySearch("lmn"));
 			assertEquals(1, stringsNatural.binarySearch("lm"));
-			assertEquals(-5, stringsLength.binarySearch("lmn", compLength));
+			assertEquals(0, stringsNatural.binarySearch("abcd"));
+			
 			assertEquals(0, stringsLength.binarySearch("x", compLength));
-			for(String item: stringsLength) System.out.println(item);
+			assertEquals(-1, stringsLength.binarySearch("a", compLength));
+			assertEquals(1, stringsLength.binarySearch("y", compLength));
+			assertEquals(-5, stringsLength.binarySearch("lmn", compLength));
 			assertEquals(3, stringsLength.binarySearch("lm", compLength));
 	}
 	
