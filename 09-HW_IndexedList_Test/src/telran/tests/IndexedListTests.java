@@ -107,13 +107,12 @@ class IndexedListTests {
 			assertEquals(personVova, listPersons.get(1));
 			assertEquals(personMoshe, listPersons.get(0));
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 	}
 	@Test
 	void testBinarySearch() {
-		try {
 			String stringsNaturalOrder[]=
 				{"abcd","lm", "lmnopr","x","y","z"};
 			String stringsLengthOrder[]=
@@ -124,10 +123,9 @@ class IndexedListTests {
 			assertEquals(-3, stringsNatural.binarySearch("lmn"));
 			assertEquals(1, stringsNatural.binarySearch("lm"));
 			assertEquals(-5, stringsLength.binarySearch("lmn", compLength));
-			assertEquals(3, stringsLength.binarySearch("lm", compLength ));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			assertEquals(0, stringsLength.binarySearch("x", compLength));
+			for(String item: stringsLength) System.out.println(item);
+			assertEquals(3, stringsLength.binarySearch("lm", compLength));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -152,15 +150,15 @@ class IndexedListTests {
 	}
 	@Test
 	void testFilter() {
-		try {
+//		try {
 			int expected[] = {10, -8, 70, 30};
 			IndexedList<Integer> listNoEven =
 					listNumbers.filter(new EvenNumbersPredicate());
 			int actualNumbers[] = getActualNumbers(listNoEven);
 			assertArrayEquals(expected, actualNumbers);	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 	}
 	@Test
@@ -182,17 +180,14 @@ class IndexedListTests {
 	 * even numbers should be sorted in the descending order
 	 */
 	void testSortingEvenOdd( ) {
-		try {
 			// {10, -8, 70, 75, 30}
-			listNumbers.add(73);
-			listNumbers.add(3);
-			int []expected = {3, 73, 75, 70, 30, 10, -8};
-			listNumbers.sort(new EvenOddComparator());
-			assertArrayEquals(expected,
+		listNumbers.add(73);
+		listNumbers.add(3);
+		int []expected = {3, 73, 75, 70, 30, 10, -8};
+		listNumbers.sort(new EvenOddComparator());
+		assertArrayEquals(expected,
 					getActualNumbers(listNumbers));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+
 	}
 	@Test
 	void testRemoveObject() {

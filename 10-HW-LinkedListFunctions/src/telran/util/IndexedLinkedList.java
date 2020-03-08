@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
+
 public class IndexedLinkedList<T> implements IndexedList<T>{
 	
 private static class Node<T> {
@@ -121,6 +122,7 @@ public IndexedLinkedList(int dummy) {
 	private Node<T> getNode(int ind) {
 		return ind < size / 2 ? getFromLeft(ind) : getFromRight(ind);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public int binarySearch(T pattern) {
 		return binarySearch(pattern, (Comparator<T>)Comparator.naturalOrder());
@@ -128,10 +130,14 @@ public IndexedLinkedList(int dummy) {
 
 	@Override
 	public int binarySearch(T pattern, Comparator<T> comp) {
-		if(array!=null) {
-			sort();
-		}
-		return Arrays.binarySearch(array, pattern, comp);
+//		if(array!=null) {
+			sort(comp);
+//		}
+		
+
+		int res = Arrays.binarySearch(array, pattern, (Comparator<T>)Comparator.naturalOrder());
+		array=null;
+		return res;
 	}
 
 	@Override
@@ -316,23 +322,16 @@ public IndexedLinkedList(int dummy) {
 	public void sort(Comparator<T> comp) {
 		@SuppressWarnings("unchecked")
 		T[] tempArr = (T[]) new Object[size];
-        int i = 0;
-        
-        for (T t : this) {
-			tempArr[i] = t;
-			i++;
+        Node<T> current = head;
+        for (int  i= 0; i < size; i++) {
+			tempArr[i] = current.obj;
+			current = current.next;
 		}
+
         array = tempArr;
         Arrays.sort(array, comp);
-        
-        /* Solution, using Array class from the previous Class works */
-//		Array<T> array = new Array<T>() ;
-//		for (T t : this) {
-//			array.add(t);
-//		}
-//		array.sort();
 
-		Node<T> current = tail;
+		current = head;
 		for(T item : array) {
 			current.obj=item;
 			current = current.next;
