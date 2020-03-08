@@ -108,7 +108,7 @@ class IndexedListTests {
 		
 	}
 	@Test
-	void testBinarySearch() {
+	void testBinarySearch() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 			String stringsNaturalOrder[]=
 				{"abcd","lm", "lmnopr","x","y","z"};
 			String stringsLengthOrder[]=
@@ -119,7 +119,7 @@ class IndexedListTests {
 			assertEquals(-3, stringsNatural.binarySearch("lmn"));
 			assertEquals(1, stringsNatural.binarySearch("lm"));
 			assertEquals(0, stringsNatural.binarySearch("abcd"));
-			
+			stringsLength.sort(compLength);
 			assertEquals(0, stringsLength.binarySearch("x", compLength));
 			assertEquals(-1, stringsLength.binarySearch("a", compLength));
 			assertEquals(1, stringsLength.binarySearch("y", compLength));
@@ -128,9 +128,8 @@ class IndexedListTests {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private IndexedList<String> getListStrings(String[] strings) {
+	private IndexedList<String> getListStrings(String[] strings) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		//Array<String> array = new Array<>(strings.length);
-		try {
 			//getting an object of the same class as listNumbers
 			/*************************************/
 			IndexedList<String> list = 
@@ -142,22 +141,14 @@ class IndexedListTests {
 			}
 			
 			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 	@Test
 	void testFilter() {
-//		try {
 			int expected[] = {10, -8, 70, 30};
 			IndexedList<Integer> listNoEven =
 					listNumbers.filter(new EvenNumbersPredicate());
 			int actualNumbers[] = getActualNumbers(listNoEven);
 			assertArrayEquals(expected, actualNumbers);	
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		
 	}
 	@Test

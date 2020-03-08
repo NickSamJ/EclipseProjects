@@ -7,51 +7,57 @@ import java.util.function.Predicate;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
+public class IndexedLinkedList<T> implements IndexedList<T> {
 
-public class IndexedLinkedList<T> implements IndexedList<T>{
-	
-private static class Node<T> {
-	public T obj;
-	public Node<T> next;
-	public Node<T> prev;
-	public Node(T obj) {
-		this.obj = obj;
-	}
-}
-private class ListIterator implements Iterator<T> {
-Node<T> current = head;
-	@Override
-	public boolean hasNext() {
-		return current != null;
-	}
+	private static class Node<T> {
+		public T obj;
+		public Node<T> next;
+		public Node<T> prev;
 
-	@Override
-	public T next() {
-		T res = current.obj;
-		current = current.next;
-		return res;
-	}
-	@Override
-	public void remove() {
-		if (current == null) {
-			removeTail();
-		} else {
-			removeNode(current.prev);
+		public Node(T obj) {
+			this.obj = obj;
 		}
 	}
-	
-}
-private Node<T> head;
-private Node<T> tail;
-private int size;
-private T[] array=null;
 
-public IndexedLinkedList() {
-	
-}
-public IndexedLinkedList(int dummy) {
-	
-}
+	private class ListIterator implements Iterator<T> {
+		Node<T> current = head;
+
+		@Override
+		public boolean hasNext() {
+			return current != null;
+		}
+
+		@Override
+		public T next() {
+			T res = current.obj;
+			current = current.next;
+			return res;
+		}
+
+		@Override
+		public void remove() {
+			if (current == null) {
+				removeTail();
+			} else {
+				removeNode(current.prev);
+			}
+		}
+
+	}
+
+	private Node<T> head;
+	private Node<T> tail;
+	private int size;
+	private T[] array = null;
+
+	public IndexedLinkedList() {
+
+	}
+
+	public IndexedLinkedList(int dummy) {
+
+	}
+
 	@Override
 	public Iterator<T> iterator() {
 		return new ListIterator();
@@ -62,16 +68,15 @@ public IndexedLinkedList(int dummy) {
 		Node<T> newNode = new Node<>(obj);
 		addNodeTail(newNode);
 		array = null;
-		
+
 	}
-	
 
 	@Override
 	public boolean add(int index, T obj) {
 		boolean res = true;
 		Node<T> newNode = new Node<>(obj);
-	
-		if(index == 0) {
+
+		if (index == 0) {
 			addNodeHead(newNode);
 		} else if (index == size) {
 			addNodeTail(newNode);
@@ -81,24 +86,24 @@ public IndexedLinkedList(int dummy) {
 		} else {
 			res = false;
 		}
-		if(isValidIndex(index) && index == size) {
-			array=null;
+		if (isValidIndex(index) && index == size) {
+			array = null;
 		}
 		return res;
-		
+
 	}
 
-	private void addNodeMiddle(Node<T> newNode,
-			Node<T> beforeNode) {
+	private void addNodeMiddle(Node<T> newNode, Node<T> beforeNode) {
 		newNode.next = beforeNode;
 		newNode.prev = beforeNode.prev;
 		beforeNode.prev.next = newNode;
 		beforeNode.prev = newNode;
 		size++;
-		
+
 	}
+
 	private void addNodeHead(Node<T> newNode) {
-		if(head == null) {
+		if (head == null) {
 			head = tail = newNode;
 		} else {
 			newNode.next = head;
@@ -106,10 +111,11 @@ public IndexedLinkedList(int dummy) {
 			head = newNode;
 		}
 		size++;
-		
+
 	}
+
 	private void addNodeTail(Node<T> newNode) {
-		if(head == null) {
+		if (head == null) {
 			head = tail = newNode;
 		} else {
 			tail.next = newNode;
@@ -117,23 +123,24 @@ public IndexedLinkedList(int dummy) {
 			tail = newNode;
 		}
 		size++;
-		
+
 	}
+
 	private Node<T> getNode(int ind) {
 		return ind < size / 2 ? getFromLeft(ind) : getFromRight(ind);
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public int binarySearch(T pattern) {
-		return binarySearch(pattern, (Comparator<T>)Comparator.naturalOrder());
+		return binarySearch(pattern, (Comparator<T>) Comparator.naturalOrder());
 	}
 
 	@Override
 	public int binarySearch(T pattern, Comparator<T> comp) {
-		if(array==null) {
+		if (array == null) {
 			sort(comp);
 		}
-		
 
 		int res = Arrays.binarySearch(array, pattern, comp);
 		return res;
@@ -141,15 +148,22 @@ public IndexedLinkedList(int dummy) {
 
 	@Override
 	public IndexedList<T> filter(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return null;
+		IndexedLinkedList<T> res = new IndexedLinkedList<T>();
+		Node<T> current = head;
+		for (int i = 0; i < size; i++) {
+			if (predicate.test(current.obj)) {
+				res.add(current.obj);
+			}
+			current = current.next;
+		}
+		return res;
 	}
 
 	@Override
 	public T get(int ind) {
 		T res = null;
 		if (isValidIndex(ind)) {
-			Node<T>nodeRes = getNode(ind);
+			Node<T> nodeRes = getNode(ind);
 			res = nodeRes.obj;
 		}
 		return res;
@@ -164,14 +178,14 @@ public IndexedLinkedList(int dummy) {
 	}
 
 	private Node<T> getFromLeft(int ind) {
-		
+
 		Node<T> current = head;
-		for( int i = 0; i < ind; i++) {
+		for (int i = 0; i < ind; i++) {
 			current = current.next;
 		}
 		return current;
 	}
-	
+
 	private boolean isValidIndex(int ind) {
 		return ind >= 0 && ind < size;
 	}
@@ -181,9 +195,9 @@ public IndexedLinkedList(int dummy) {
 		if (pattern == null) {
 			return -1;
 		}
-		int index=0;
+		int index = 0;
 		Node<T> current = head;
-		while(index<size && !pattern.equals(current.obj)) {
+		while (index < size && !pattern.equals(current.obj)) {
 			index++;
 			current = current.next;
 		}
@@ -195,9 +209,9 @@ public IndexedLinkedList(int dummy) {
 		if (pattern == null) {
 			return -1;
 		}
-		int index=size - 1;
+		int index = size - 1;
 		Node<T> current = tail;
-		while(index >= 0 && !pattern.equals(current.obj)) {
+		while (index >= 0 && !pattern.equals(current.obj)) {
 			index--;
 			current = current.prev;
 		}
@@ -211,19 +225,21 @@ public IndexedLinkedList(int dummy) {
 			Node<T> removedNode = getNode(ind);
 			res = removedNode.obj;
 			removeNode(removedNode);
-			
+
 		}
 		return res;
 	}
+
 	private void removeNode(Node<T> removedNode) {
-		if (removedNode == head ) {
+		if (removedNode == head) {
 			removeHead();
-		} else if(removedNode == tail) {
+		} else if (removedNode == tail) {
 			removeTail();
 		} else {
 			removeNodeMiddle(removedNode);
 		}
 	}
+
 	private void removeNodeMiddle(Node<T> removedNode) {
 		removedNode.next.prev = removedNode.prev;
 		removedNode.prev.next = removedNode.next;
@@ -235,24 +251,26 @@ public IndexedLinkedList(int dummy) {
 			head = tail = null;
 		} else {
 			tail.prev.next = null;
-		tail = tail.prev;
+			tail = tail.prev;
 		}
 		size--;
-		
+
 	}
+
 	private void removeHead() {
 		if (head == tail) {
 			head = tail = null;
 		} else {
 			head.next.prev = null;
-		head = head.next;
+			head = head.next;
 		}
 		size--;
-		
+
 	}
+
 	@Override
 	public Object remove(Object pattern) {
-		//variant with existing methods but with two passes
+		// variant with existing methods but with two passes
 //		int index = indexOf(pattern);
 //		Object res = null;
 //		if (index >= 0) {
@@ -261,33 +279,27 @@ public IndexedLinkedList(int dummy) {
 //			removeNode(node);
 //		}
 //		return res;
-		//variant with only one pass over the list
+		// variant with only one pass over the list
 		Node<T> current = head;
-		while(current != null && !current.obj.equals(pattern)) {
+		while (current != null && !current.obj.equals(pattern)) {
 			current = current.next;
 		}
 		Object res = null;
-		if(current != null) {
+		if (current != null) {
 			res = current.obj;
 			removeNode(current);
 		}
 		return res;
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		Iterator<T> it = iterator();
 		boolean result = false;
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			T value = it.next();
-			if(predicate.test(value)) {
+			if (predicate.test(value)) {
 				it.remove();
 				result = true;
 			}
@@ -302,7 +314,7 @@ public IndexedLinkedList(int dummy) {
 			Node<T> temp = this.getNode(ind);
 			res = temp.obj;
 			temp.obj = newObj;
-			
+
 		}
 		return res;
 	}
@@ -314,25 +326,26 @@ public IndexedLinkedList(int dummy) {
 
 	@Override
 	public void sort() {
-		sort((Comparator<T>)Comparator.naturalOrder());
+		sort((Comparator<T>) Comparator.naturalOrder());
 	}
 
 	@Override
 	public void sort(Comparator<T> comp) {
 		array = (T[]) new Object[size];
-        Node<T> current = head;
-        for (int  i= 0; i < size; i++) {
+		Node<T> current = head;
+		for (int i = 0; i < size; i++) {
 			array[i] = current.obj;
 			current = current.next;
 		}
 
-        Arrays.sort(array, comp);
+		Arrays.sort(array, comp);
 
 		current = head;
-		for(T item : array) {
-			current.obj=item;
+		for (T item : array) {
+			current.obj = item;
 			current = current.next;
-		};
+		}
+		;
 	}
 
 }
