@@ -135,7 +135,7 @@ public IndexedLinkedList(int dummy) {
 		}
 		
 
-		int res = Arrays.binarySearch(array, pattern );
+		int res = Arrays.binarySearch(array, pattern, comp);
 		return res;
 	}
 
