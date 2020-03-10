@@ -86,7 +86,7 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 		} else {
 			res = false;
 		}
-		if (isValidIndex(index) && index == size) {
+		if (isValidIndex(index) || index == size) {
 			array = null;
 		}
 		return res;
