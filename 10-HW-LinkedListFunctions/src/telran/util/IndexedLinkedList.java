@@ -345,7 +345,75 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 			current.obj = item;
 			current = current.next;
 		}
-		;
 	}
 
+	public void setLoop(int indFrom, int indTo) {
+//		if (isValidIndex(indFrom) || isValidIndex(indTo) || indFrom > indTo) {
+//			Node<T> fromNode = getNode(indFrom);
+//			Node<T> toNode = getNode(indTo);
+//			
+//			fromNode.prev = toNode;
+//			toNode.next = fromNode;
+//			
+//			
+//		}
+		
+		
+//		if ((isValidIndex(indFrom)) & (isValidIndex(indTo))) {
+//
+//            if (indFrom == indTo) {
+//                return;
+//            }
+//
+//            if ((indFrom > indTo)) {
+//                Node<T> current = getNode(indFrom);
+//                current.next = getNode(indTo);
+//            }
+//
+//            if ((indFrom < indTo)) {
+//                Node<T> current = getNode(indFrom);
+//                current.prev = getNode(indTo);
+//            }
+//        }
+	
+		{
+			if (!isValidIndex(indFrom) || !isValidIndex(indTo) || indFrom < indTo) {
+				return;
+			}
+
+			Node<T> nodeFrom = getNode(indFrom);
+			Node<T> nodeTo = getNode(indTo);
+
+			if (nodeFrom == null || nodeTo == null) {
+				return;
+			}
+
+			nodeFrom.next = nodeTo;
+		}
+	}
+	
+	public static void main(String[] args) {
+		int[] a = {10, -8, 70, 75, 30};
+		IndexedLinkedList<Integer> list = new IndexedLinkedList<>(4); //single place of updating code
+		
+		for (int i = 0; i < a.length; i++) {
+			list.add(a[i]);
+		}
+		
+//		for(int i : list) {
+//			System.out.println(i);
+//		}
+		int b = 0;
+		list.setLoop(2, 1);
+		while(b<10) {
+			for(int i : list) {
+				System.out.print(i + ", ");
+				b++;
+			}	
+			System.out.println("\n________________");
+			
+		}
+	}
 }
+
+
