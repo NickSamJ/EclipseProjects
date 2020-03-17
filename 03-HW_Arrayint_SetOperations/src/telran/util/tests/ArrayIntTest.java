@@ -126,8 +126,17 @@ class ArrayIntTest {
 		int ar3[] = {0, -8, 20, 10};
 		int exp1[] = {10, 30, -8, 20, 0, -3, 7, 11};
 		int exp2[] = {10, 30, -8, 20, 0};
-		assertArrayEquals(exp1, ArrayInt.union(ar1, ar2));
-		assertArrayEquals(exp2, ArrayInt.union(ar1, ar3));
+
+		int[] res1 =  ArrayInt.union(ar1, ar2);
+		int[] res2 =  ArrayInt.union(ar1, ar3);
+		Arrays.sort(res1);
+		Arrays.sort(res2);
+		Arrays.sort( exp1);
+		Arrays.sort( exp2);
+
+		assertArrayEquals(exp1, res1);
+		
+		assertArrayEquals(exp2, res2);
 	}
 	@Test
 	void testIntersection () {

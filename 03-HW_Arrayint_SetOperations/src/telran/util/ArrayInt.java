@@ -160,22 +160,21 @@ public class ArrayInt {
 	 * with no repetitions 
 	 */
 	public static int[] union (int ar1[], int ar2[]) {		
-		int[] result = Arrays.copyOf(ar1, ar1.length+ar2.length);
-		boolean isInAr = false; 
-		int index = ar1.length;
-		
-		for(int i=0; i<ar2.length; i++) {
-			for(int item : ar1) {
-				if(item == ar2[i]) isInAr=true;
-				
-			}
-			if(isInAr==false) {				
-				result[index++] = ar2[i];
-				isInAr=false;
-			}
+		HashSet<Integer> tempSet = new HashSet<Integer>();
+		for(int item : ar1) {
+			tempSet.add(item);
+		}
+		for(int item : ar2) {
+			tempSet.add(item);
+		}
+		int[] res = new int[tempSet.size()];
+		int i = 0;
+		for(int k : tempSet) {
+			res[i] = k;
+			i++;
 		}
 		
-		return Arrays.copyOf(result, index);
+		return res;
 	}
 	/**
 	 * Assumption: no repeated numbers in each array, but
@@ -187,16 +186,19 @@ public class ArrayInt {
 	 */
 	public static int[] intersection (int ar1[], int ar2[]) {
 		int[] result = new int[ar1.length > ar2.length ? ar2.length : ar1.length];
-		int index = 0;
 		
-		for(int i=0; i<ar1.length; i++) {
-			for(int item:ar2) {
-				if(item==ar1[i]) {
-					result[index++] = item;
-				};
+		HashSet<Integer> tempSet = new HashSet<Integer>();
+		for(int item: ar2) {
+			tempSet.add(item);
+		}
+		int i=0;
+		for(int item: ar1) {
+			if(tempSet.contains(item)) {
+				result[i++] = item;
 			}
 		}
-		return Arrays.copyOf(result, index);
+		
+		return Arrays.copyOf(result, i);
 	}
 	/**
 	 * Assumption: no repeated numbers in each array, but
@@ -207,24 +209,20 @@ public class ArrayInt {
 	 * 	in the second
 	 */
 	public static int[] difference (int ar1[], int ar2[]) {
-		int[] result = new int[ar1.length < ar2.length ? ar1.length : ar2.length];
-		int index = 0;
+		int[] result = new int[ar1.length > ar2.length ? ar2.length : ar1.length];
 		
-		boolean hasRepeats = false;
-		for (int i = 0; i < ar1.length; i++) {
-			for (int item: ar2) {
-				if (item==ar1[i]) {
-					hasRepeats = true;
-				}
-			}
-			if (hasRepeats==false) {
-				result[index++]=ar1[i];
-			}else {
-				hasRepeats = false;
+		HashSet<Integer> tempSet = new HashSet<Integer>();
+		for(int item: ar2) {
+			tempSet.add(item);
+		}
+		int i=0;
+		for(int item: ar1) {
+			if(!(tempSet.contains(item))) {
+				result[i++] = item;
 			}
 		}
 		
-		return Arrays.copyOf(result, index);
+		return Arrays.copyOf(result, i);
 	}
 }
 
