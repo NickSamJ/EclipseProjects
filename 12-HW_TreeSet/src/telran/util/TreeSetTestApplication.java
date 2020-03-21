@@ -13,24 +13,6 @@ public class TreeSetTestApplication {
 		tree.add(13);   // right from 10, left from 20
 		tree.add(55);
 		tree.remove(55);
-		
-		
-		System.out.println("+_+_+_+_+_+_+");
-		
-		Iterator it = tree.iterator();
-		while (it.hasNext()) {
-//			System.out.println((Integer)it.next());
-			
-			
-			if((Integer)it.next()>10) it.remove();
-			printTree(tree);
-		}
-		
-	}
-	public static void printTree(TreeSet<Integer> tree) {
-		for(int i : tree) {
-			System.out.print(i + ", ");
-		}
-		System.out.println("____________");
+
 	}
 }
