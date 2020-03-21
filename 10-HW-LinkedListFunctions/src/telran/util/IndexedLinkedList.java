@@ -390,6 +390,18 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 
 			nodeFrom.next = nodeTo;
 		}
+		
+//		public void setLoop(int indFrom, int indTo) {
+//			if(isValidIndex(indFrom) && isValidIndex(indTo)) {
+//				Node<T> nodeFrom = getNode(indFrom);
+//				Node<T> nodeTo = getNode(indTo);
+//				Comparator<T> comp = (Comparator<T>) Comparator.naturalOrder();
+//				
+//				if(comp.compare(nodeFrom.obj, nodeTo.obj)) {
+//					
+//				}
+//			}
+//		}
 	}
 	
 	public static void main(String[] args) {
@@ -414,6 +426,8 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 			
 		}
 	}
+	
+
 }
 
 

@@ -159,7 +159,10 @@ public class ArrayInt {
 	 * @return array containing numbers of first and second arrays 
 	 * with no repetitions 
 	 */
-	public static int[] union (int ar1[], int ar2[]) {		
+	public static int[] union (int ar1[], int ar2[]) {
+//		int res[] = Arrays.copyOf(ar1, ar1.length + ar2.length);
+//		HashSet<Integer> temp = new HashSet<Integer>();
+		
 		HashSet<Integer> tempSet = new HashSet<Integer>();
 		for(int item : ar1) {
 			tempSet.add(item);
