@@ -17,7 +17,7 @@ class SetTests {
 	Set<Integer> set;
 	@BeforeEach
 	void setUp() {
-		set = new HashSet<Integer>();
+		set = new TreeSet<Integer>();
 		for(Integer num: numbers) {
 			set.add(num);
 		}
@@ -62,7 +62,7 @@ class SetTests {
 		}
 		@Test
 		void testRemoveIf() {
-			Integer[] oddNumbers = {11,7, 13, 9, 15, 21, 121};
+			Integer[] oddNumbers = {11, 7, 13, 9, 15, 21, 121};
 			assertTrue(set.removeIf(new EvenNumbersPredicate()));
 			testSetArray(set, oddNumbers);
 			
@@ -80,6 +80,7 @@ class SetTests {
 			}
 			assertTrue(set.removeIf(new EvenNumbersPredicate()));
 			for(int num : set) {
+				System.out.println(num);
 				assertTrue(num % 2 == 1);
 			}
 		}

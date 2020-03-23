@@ -125,15 +125,17 @@ public class TreeSet<T> implements Set<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		Iterator<T> it = iterator();
+		boolean res = false;
 		while(it.hasNext()) {
 			var current = it.next();
 			if(predicate.test(current)) {
 				it.remove();
+				res = true;
 			}
 		}
 		
 		
-		return false;
+		return res;
 	}
 
 	@Override
@@ -180,25 +182,48 @@ public class TreeSet<T> implements Set<T> {
 		
 		@Override
 		public void remove() {
-			removeNode(current);
+			Node<T> next = TreeSet.this.removeNode(prev);
+			if(hasNext() && next != null) {
+				current = next;
+			}
 		}
 	}
 	
-	private void removeNode(Node<T> node) {
+	private Node<T> removeNode(Node<T> node) {
+		Node<T> next = null;
 		if (isJunction(node)) {
 			Node<T> substitude = getLeastNode(node.right);
 			node.obj = substitude.obj;
+			next = node;
 			node = substitude;
 		}
 		removeNonJunctionNode(node);
 		size--;
+		
+		return next;
 	}
 
 	private void setParrent(Node<T> node, Node<T> nodeSide) {
-		if(node.parrent.left == node) {
-			node.parrent.left = nodeSide;
+	
+		if(root == node) {
+			if(nodeSide == null) {
+				// the tree contains only root
+				root = null;
+			}else if(node.left != null) {
+				root.obj = node.left.obj;
+				root = node.left;
+				root.parrent = null;
+			}else {
+				root.obj = node.right.obj;
+				root = node.right;
+				root.parrent = null;
+			}
 		}else {
-			node.parrent.right = nodeSide;
+			if(node.parrent.left == node) {
+				node.parrent.left = nodeSide;
+			}else if(node.parrent.right == node) {
+				node.parrent.right = nodeSide;
+			}
 		}
 	}
 	private void removeNonJunctionNode(Node<T> node) {
