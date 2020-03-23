@@ -73,4 +73,15 @@ class SetTests {
 			assertEquals(0, set.size());
 		}
 		
+		@Test
+		void testRemoveALot() {
+			for (int i = 0; i < 10000; i++) {
+				set.add((int) (Math.random()*Integer.MAX_VALUE));
+			}
+			assertTrue(set.removeIf(new EvenNumbersPredicate()));
+			for(int num : set) {
+				assertTrue(num % 2 == 1);
+			}
+		}
+		
 }

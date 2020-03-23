@@ -180,7 +180,7 @@ public class TreeSet<T> implements Set<T> {
 		
 		@Override
 		public void remove() {
-			TreeSet.this.remove(prev.obj);
+			removeNode(current);
 		}
 	}
 	

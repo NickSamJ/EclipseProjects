@@ -348,60 +348,19 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 	}
 
 	public void setLoop(int indFrom, int indTo) {
-//		if (isValidIndex(indFrom) || isValidIndex(indTo) || indFrom > indTo) {
-//			Node<T> fromNode = getNode(indFrom);
-//			Node<T> toNode = getNode(indTo);
-//			
-//			fromNode.prev = toNode;
-//			toNode.next = fromNode;
-//			
-//			
-//		}
-		
-		
-//		if ((isValidIndex(indFrom)) & (isValidIndex(indTo))) {
-//
-//            if (indFrom == indTo) {
-//                return;
-//            }
-//
-//            if ((indFrom > indTo)) {
-//                Node<T> current = getNode(indFrom);
-//                current.next = getNode(indTo);
-//            }
-//
-//            if ((indFrom < indTo)) {
-//                Node<T> current = getNode(indFrom);
-//                current.prev = getNode(indTo);
-//            }
-//        }
-	
-		{
-			if (!isValidIndex(indFrom) || !isValidIndex(indTo) || indFrom < indTo) {
-				return;
-			}
-
+		if(isValidIndex(indFrom) && isValidIndex(indTo)) {
+			Comparator<T> comp =(Comparator<T>) Comparator.naturalOrder();
 			Node<T> nodeFrom = getNode(indFrom);
 			Node<T> nodeTo = getNode(indTo);
-
-			if (nodeFrom == null || nodeTo == null) {
+			Integer ratio = comp.compare(nodeFrom.obj, nodeTo.obj); 
+			if( ratio == 0) {
 				return;
+			}else if( ratio > 0) {
+				nodeFrom.next =  nodeTo;
+			}else {
+				nodeFrom.prev = nodeTo;
 			}
-
-			nodeFrom.next = nodeTo;
 		}
-		
-//		public void setLoop(int indFrom, int indTo) {
-//			if(isValidIndex(indFrom) && isValidIndex(indTo)) {
-//				Node<T> nodeFrom = getNode(indFrom);
-//				Node<T> nodeTo = getNode(indTo);
-//				Comparator<T> comp = (Comparator<T>) Comparator.naturalOrder();
-//				
-//				if(comp.compare(nodeFrom.obj, nodeTo.obj)) {
-//					
-//				}
-//			}
-//		}
 	}
 	
 	public static void main(String[] args) {
