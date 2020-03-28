@@ -22,6 +22,17 @@ class IndexedListTests {
 	void setUp() {
 		listNumbers = getList();
 	}
+
+	@Test
+	void testLinkedListReverse() {
+		if (listNumbers instanceof IndexedLinkedList) {
+			((IndexedLinkedList<Integer>)listNumbers).reverse();
+
+			int expected[] = {30, 75, 70, -8, 10};
+			int actual[] = getActualNumbers(listNumbers);
+			assertArrayEquals(expected, actual);
+		}
+	}
 	@Test
 	void testAddGetSize() {
 		for (int i = 0; i < listNumbers.size(); i++) {

@@ -3,6 +3,7 @@ package telran.util;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Predicate;
 
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
@@ -362,31 +363,26 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 			}
 		}
 	}
-	
-	public static void main(String[] args) {
-		int[] a = {10, -8, 70, 75, 30};
-		IndexedLinkedList<Integer> list = new IndexedLinkedList<>(4); //single place of updating code
-		
-		for (int i = 0; i < a.length; i++) {
-			list.add(a[i]);
-		}
-		
-//		for(int i : list) {
-//			System.out.println(i);
-//		}
-		int b = 0;
-		list.setLoop(2, 1);
-		while(b<10) {
-			for(int i : list) {
-				System.out.print(i + ", ");
-				b++;
-			}	
-			System.out.println("\n________________");
-			
-		}
+	public void reverse() {
+		reverse(tail);
 	}
-	
 
+	private void reverse(Node<T> nodeNext) {
+		Node<T> prev = nodeNext.next;
+		
+		if(nodeNext.next == null) {
+			head = nodeNext;
+			prev = null;
+		}else if (nodeNext.prev == null) {
+			tail = nodeNext;
+			nodeNext.next = null;
+			nodeNext.prev = prev; 
+			return;
+		}
+		nodeNext.next = nodeNext.prev;
+		nodeNext.prev = prev;
+		reverse(nodeNext.next);
+	}
 }
 
 

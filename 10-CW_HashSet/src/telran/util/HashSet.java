@@ -113,21 +113,21 @@ public class HashSet<T> implements Set<T> {
 		return res;
 	}
 
-	@Override
-	public boolean removeIf(Predicate<T> predicate) {
-		Iterator<T> it = new HashSetIterator(); 
-		boolean result = false;
-		
-		while(it.hasNext()) {
-			if (predicate.test(it.next())) {
-				it.remove();
-				result = true;
-			}
-		}
-		
-
-		return result;
-	}
+//	@Override
+//	public boolean removeIf(Predicate<T> predicate) {
+//		Iterator<T> it = new HashSetIterator(); 
+//		boolean result = false;
+//		
+//		while(it.hasNext()) {
+//			if (predicate.test(it.next())) {
+//				it.remove();
+//				result = true;
+//			}
+//		}
+//		
+//
+//		return result;
+//	}
 
 	@Override
 	public boolean contains(T pattern) {
