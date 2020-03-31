@@ -364,25 +364,36 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 		}
 	}
 	public void reverse() {
-		reverse(tail);
+		reverse(head, tail);
 	}
 
-	private void reverse(Node<T> nodeNext) {
-		Node<T> prev = nodeNext.next;
-		
-		if(nodeNext.next == null) {
-			head = nodeNext;
-			prev = null;
-		}else if (nodeNext.prev == null) {
-			tail = nodeNext;
-			nodeNext.next = null;
-			nodeNext.prev = prev; 
-			return;
-		}
-		nodeNext.next = nodeNext.prev;
-		nodeNext.prev = prev;
-		reverse(nodeNext.next);
+	public void reverse(Node<T> tempHead, Node<T> tempTail) {
+        T prev = tempHead.obj;
+        tempHead.obj = tempTail.obj;
+        tempTail.obj = prev;
+        if (tempHead.next == tempTail.prev || tempHead.next==tempTail) {
+            return;
+        }
+        reverse(head.next, tail.prev);
 	}
+	
+//	private void reverse(Node<T> nodeNext) {
+//		Node<T> prev = nodeNext.next;
+//		
+//		if(nodeNext.next == null) {
+//			head = nodeNext;
+//			prev = null;
+//		}else if (nodeNext.prev == null) {
+//			tail = nodeNext;
+//			nodeNext.next = null;
+//			nodeNext.prev = prev; 
+//			return;
+//		}
+//		nodeNext.next = nodeNext.prev;
+//		nodeNext.prev = prev;
+//		reverse(nodeNext.next);
+//	}
+	
 }
 
 
