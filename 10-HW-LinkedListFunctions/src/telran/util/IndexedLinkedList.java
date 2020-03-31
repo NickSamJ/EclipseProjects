@@ -368,6 +368,7 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 	}
 
 	public void reverse(Node<T> tempHead, Node<T> tempTail) {
+		// Complexity N/2
         T prev = tempHead.obj;
         tempHead.obj = tempTail.obj;
         tempTail.obj = prev;
@@ -378,6 +379,7 @@ public class IndexedLinkedList<T> implements IndexedList<T> {
 	}
 	
 //	private void reverse(Node<T> nodeNext) {
+//		// Complexity N-1
 //		Node<T> prev = nodeNext.next;
 //		
 //		if(nodeNext.next == null) {
