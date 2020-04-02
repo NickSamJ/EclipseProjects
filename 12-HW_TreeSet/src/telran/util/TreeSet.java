@@ -1,8 +1,10 @@
 package telran.util;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Predicate;
+
 
 public class TreeSet<T> implements Set<T> {
 
@@ -15,10 +17,13 @@ public class TreeSet<T> implements Set<T> {
 			this.obj = obj;
 		}
 	}
+
+
+	private static final int SPACES_PER_LEVEL = 2;
 	
 
 	Node<T> root;
-	Integer size;
+	Integer size = 0;
 	TreeSet(Comparator<T> comparator){
 		this.comparator = comparator;
 	}
@@ -241,5 +246,78 @@ public class TreeSet<T> implements Set<T> {
 	private boolean isJunction(Node<T> node) {
 		return node.left != null && node.right != null;
 	}
-
+	public void RotatedTreeDisplay(){
+		rotateDisplay(root, 1);
+	}
+	private void rotateDisplay(Node<T> root, int level) {
+		if(root != null) {
+			rotateDisplay(root.right, level + 1);
+			displayRoot(root, level);
+			rotateDisplay(root.left, level + 1);
+			
+		}
+	}
+	private void displayRoot(Node<T> root, int level) {
+		printOfSet(level);
+		System.out.println(root.obj);
+	}
+	private void printOfSet(int level) {
+		int limit = level * SPACES_PER_LEVEL;
+		for (int i = 0; i < limit; i++) {
+			System.out.print(" ");
+		}
+		
+	}
+	public Integer height() {
+		return height(root);
+	}
+	private Integer height(Node<T> root) {
+		int res = 0;
+		if (root != null) {
+			int hightLeft = height(root.left);
+			int hightRight = height(root.right);
+			res = 1 + Math.max(hightLeft, hightRight);	
+		}
+		
+		if (res == 0) {
+			return 0;
+		}
+		return res;
+	}
+	public Integer width() {
+		return width(root);
+	}
+	private int width(Node<T> root) {	
+		if(root == null) {
+			return 0;
+		}
+		if(root.left == null && root.right == null) {
+			return 1;
+		}
+		return width(root.left) + width(root.right);
+			
+	}
+	public ArrayList<ArrayList<T>> getObjectsByLevels() {
+		
+		return getObjectsByLevels(root, 0);	
+	}
+	private ArrayList<ArrayList<T>> getObjectsByLevels(Node<T> root2, int level) {
+		ArrayList<ArrayList<T>>  res = new ArrayList<>(); 
+		
+		addToLevel(root, level, res);
+		return res;
+	}
+	private void addToLevel(Node<T> root, int level, ArrayList<ArrayList<T>> res) {
+		if(root!= null) {
+			if(res.size() < level+1) {
+				res.add(new ArrayList<T>());
+			}
+			res.get(level).add(root.obj);
+			addToLevel(root.left, level+1, res);
+			addToLevel(root.right, level+1, res);
+		}
+	}	
 }
+
+
+
