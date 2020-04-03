@@ -22,10 +22,11 @@ public class TreeSetTestApplication {
 //			System.out.println(i);
 //		}
 		
-		tree.RotatedTreeDisplay();
-		ArrayList<ArrayList<Integer>> a= tree.getObjectsByLevels();
+//		tree.RotatedTreeDisplay();
+		ArrayList<ArrayList<String>> a= tree.printTree();
 		
 		
+		System.out.println("");
 		System.out.println("______________");
 		System.out.println("Width = " + tree.width() );
 		System.out.println("Height = " + tree.height() );

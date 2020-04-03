@@ -19,7 +19,7 @@ public class TreeSet<T> implements Set<T> {
 	}
 
 
-	private static final int SPACES_PER_LEVEL = 2;
+	private static final int SPACES_PER_LEVEL = 3;
 	
 
 	Node<T> root;
@@ -297,6 +297,13 @@ public class TreeSet<T> implements Set<T> {
 		return width(root.left) + width(root.right);
 			
 	}
+	
+/***********************
+ * 
+ *  	Homework(03.04.2020)
+ *  	getObjectsByLevels()
+ *  
+ **********************/
 	public ArrayList<ArrayList<T>> getObjectsByLevels() {
 		
 		return getObjectsByLevels(root, 0);	
@@ -312,11 +319,74 @@ public class TreeSet<T> implements Set<T> {
 			if(res.size() < level+1) {
 				res.add(new ArrayList<T>());
 			}
-			res.get(level).add(root.obj);
-			addToLevel(root.left, level+1, res);
+			ArrayList<T> currentSublist = res.get(level);
+			if(currentSublist.size() == 0) {
+				System.out.println("");
+				for(int i = 0; i<(this.width()-level)*SPACES_PER_LEVEL; i++) {					
+					System.out.print("*");
+				}
+			}
+			System.out.print(root.obj);
+			currentSublist.add(root.obj);
 			addToLevel(root.right, level+1, res);
+			addToLevel(root.left, level+1, res);
+		}else {
+			System.out.print(".");
 		}
 	}	
+	
+/***************
+ * 	
+ * 		printTree()
+ * 
+ **************** */
+	public ArrayList<ArrayList<String>> printTree() {
+		ArrayList<ArrayList<String>> res = generateTreeForPrint(root, 0);
+		drawTreeFromGenerated(res);
+		return res;	
+	}
+	private void drawTreeFromGenerated(ArrayList<ArrayList<String>> res) {
+		for (int i = 0; i < res.size(); i++) {
+			ArrayList<String> element = res.get(i);
+			for (int j = 0; j < element.size(); j++) {
+				
+				if(j == 0) {
+					System.out.println("");
+					for(int k = 0; k<(Math.max(this.width(), this.height())-i)*SPACES_PER_LEVEL; k++) {					
+						System.out.print("*");
+					}
+				}
+				System.out.printf(" %s   ", res.get(i).get(j));
+			}
+		}
+	}
+	private ArrayList<ArrayList<String>> generateTreeForPrint(Node<T> root2, int level) {
+		ArrayList<ArrayList<String>>  res = new ArrayList<>(); 
+		
+		addToLevelForPrint(root, level, res);
+		return res;
+	}
+	private void addToLevelForPrint(Node<T> root, int level, ArrayList<ArrayList<String>> res) {
+		if(root!= null) {
+			if(res.size() < level+1) {
+				res.add(new ArrayList<String>());
+			}
+			ArrayList<String> currentSublist = res.get(level);
+			currentSublist.add(root.obj.toString());
+			addToLevelForPrint(root.left, level+1, res);
+			addToLevelForPrint(root.right, level+1, res);
+		}else {
+			if(res.size() < level+1) {
+				res.add(new ArrayList<String>());
+			}
+			ArrayList<String> currentSublist = res.get(level);
+			currentSublist.add(".");
+			if(level<this.height()) {
+				addToLevelForPrint(null, level+1, res);
+			}
+		}
+	}	
+
 }
 
 
