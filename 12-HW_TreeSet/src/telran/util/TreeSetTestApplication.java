@@ -7,13 +7,6 @@ import java.util.Random;
 public class TreeSetTestApplication {
 	public static void main(String[] args) {
 		TreeSet<Integer> tree = new TreeSet<>();
-//		tree.add(1);
-//		tree.add(2);
-//		tree.add(3);
-//		tree.add(4);
-//		tree.add(5);
-//		tree.add(6);
-//		tree.add(7);
 		
 		fill(tree);
 		
@@ -21,13 +14,15 @@ public class TreeSetTestApplication {
 //		for(int i : tree) {
 //			System.out.println(i);
 //		}
-		
 //		tree.RotatedTreeDisplay();
-		ArrayList<ArrayList<String>> a= tree.printTree();
+//		ArrayList<ArrayList<String>> a= tree.printTree();
+//		ArrayList<ArrayList<Integer>> a= tree.getObjectsByLevels();
+//		ArrayList<ArrayList<Integer>> b= tree.getObjectsByLevels();
 		
 		
 		System.out.println("");
 		System.out.println("______________");
+		tree.RotatedTreeDisplay();
 		System.out.println("Width = " + tree.width() );
 		System.out.println("Height = " + tree.height() );
 	}

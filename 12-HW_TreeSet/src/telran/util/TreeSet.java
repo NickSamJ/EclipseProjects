@@ -153,7 +153,7 @@ public class TreeSet<T> implements Set<T> {
 		return size;
 	}
 	private Node<T> getLeastNode(Node<T> node){
-		Node<T> current = node;
+		Node<T> current = node;,
 		while(current.left !=null) {
 			current = current.left;
 		}
@@ -360,7 +360,7 @@ public class TreeSet<T> implements Set<T> {
 			}
 		}
 	}
-	private ArrayList<ArrayList<String>> generateTreeForPrint(Node<T> root2, int level) {
+	private ArrayList<ArrayList<String>> generateTreeForPrint(Node<T> root, int level) {
 		ArrayList<ArrayList<String>>  res = new ArrayList<>(); 
 		
 		addToLevelForPrint(root, level, res);
@@ -387,6 +387,56 @@ public class TreeSet<T> implements Set<T> {
 		}
 	}	
 
+	int seqNumber;
+	public TreePresentation<T> getTreePresentation() {
+		TreePresentation<T> res = new TreePresentation<>();
+		ArrayList<ArrayList<TreePresentation.Node<T>>> levels = 
+				new ArrayList<>();
+		//levels.get(i) - array of presentation nodes at level i
+		//levels - array of arrays of presentation nodes
+		seqNumber = 0;
+		int nLevels = height();
+		for(int i = 0; i < nLevels; i++) {
+			levels.add(new ArrayList<>());
+		}
+		fillLevelsPresentation(root,  0, levels);
+		res.levelsNodes = levels;
+		
+		return res;
+	}
+	private void fillLevelsPresentation(Node<T> root, int level,
+			ArrayList<ArrayList<TreePresentation.Node<T>>> levels) {
+		if (root != null) {
+			fillLevelsPresentation(root.left, level + 1, levels);
+			TreePresentation.Node<T> node = new TreePresentation.Node<>();
+			node.obj = root.obj;
+			node.seqNumber = seqNumber++;
+			levels.get(level).add(node);
+			fillLevelsPresentation(root.right, level + 1, levels);
+		}
+	}
+	
+/***************************
+ * 
+ *		Tree Balancing	 
+ * 
+ **************************/
+	public void balance() {
+		Node<T>[] arrayNodes = new Node[size];
+		fillArrayNodes(arrayNodes, root);
+		Iterator<T> it = iterator();
+		int i = 0;
+		while(it.hasNext()) {
+			T current = 
+//			arrayNodes[i] = 
+		}
+		 // fills array of the nodesroot = balance(arrayNodes, 0, size –1, null);
+		//0 –left index, size –1 –right //index; null –parent for new root}
+	}
+private void fillArrayNodes(Node<T>[] arrayNodes, Node<T> root2) {
+	// TODO Auto-generated method stub
+	
+}
 }
 
 
