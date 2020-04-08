@@ -6,13 +6,14 @@ public class JoinStringsImplBuilder implements JoinStringsInterface{
 
 	@Override
 	public String join(String[] strings, String delimiter) {
+		
+		if(strings.length == 0) {
+			return "";
+		}
 		StringBuilder res = new StringBuilder();
-		for (int i = 0; i < strings.length; i++) {
-			if(strings.length - 1 == i) {
-				res.append(strings[i]);
-			}else {
-				res.append(strings[i]).append(delimiter);
-			}
+		res.append(strings[0]);
+		for (int i = 1; i < strings.length; i++) {
+			res.append(delimiter).append(strings[i]);
 		}
 		
 		return res.toString();

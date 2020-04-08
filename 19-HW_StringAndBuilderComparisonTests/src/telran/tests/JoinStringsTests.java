@@ -21,5 +21,4 @@ class JoinStringsTests {
 		JoinStringsImplBuilder joinString = new JoinStringsImplBuilder();
 		assertEquals(expected, joinString.join(strings, sep));
 	}
-
 }
