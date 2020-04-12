@@ -7,11 +7,12 @@ import telran.util.IndexedList;
 public class IndexedListOperations extends PerformanceTest{
 	private IndexedList<Integer> list;
 	private int nNumbers;
-	private int probGet;
+	private int probGet = 0;
 	
 	
-	public IndexedListOperations(String testName, int nRuns, int nNumbers, IndexedList<Integer> list,int probGet) {
+	public IndexedListOperations(String testName, int nRuns, int nNumbers, IndexedList<Integer> list) {
 		super(testName, nRuns);
+		this.nNumbers = nNumbers;
 		this.list = list;
 		fillList(nNumbers);		
 	}
@@ -25,6 +26,10 @@ public class IndexedListOperations extends PerformanceTest{
 			 runRemoveAddFirst();
 		}
 		
+	}
+	
+	public void setGetProb(int probGet) {
+		this.probGet = probGet;
 	}
 	
 	private void fillList(int num) {
