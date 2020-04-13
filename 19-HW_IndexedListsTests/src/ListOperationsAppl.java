@@ -4,11 +4,16 @@ import telran.util.IndexedLinkedList;
 
 public class ListOperationsAppl {
 public static void main(String[] args) {
-	performanceTest(70);
+	for(int i = 0; i<=100; i+=20 ) {		
+		System.out.println("Probability: " + i);
+		performanceTest(i);
+		System.out.println("___________________");
+	}
 }
+
 static  void performanceTest(int probGet ) {
-	int nRuns = 10000;
-	int nNumbers = 10000;
+	int nRuns = 100000;
+	int nNumbers = 100000;
 
 	Array array = new Array();
 	IndexedListOperations arrayObject = new IndexedListOperations(

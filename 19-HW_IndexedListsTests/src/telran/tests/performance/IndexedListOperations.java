@@ -7,7 +7,7 @@ import telran.util.IndexedList;
 public class IndexedListOperations extends PerformanceTest{
 	private IndexedList<Integer> list;
 	private int nNumbers;
-	private int probGet = 0;
+	static int probGet = 0;
 	
 	
 	public IndexedListOperations(String testName, int nRuns, int nNumbers, IndexedList<Integer> list) {
