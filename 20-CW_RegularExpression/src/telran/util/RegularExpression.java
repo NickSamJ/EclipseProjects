@@ -9,33 +9,43 @@ public class RegularExpression {
 	 *  @return regular expression string
 	 */
 	static public String variableName() {
-		//TODO
-		
-//		return "^([a-z, A-Z, $])[a-z, A-Z, 0-9, $, _]*";
-//		return "^([])[a-z, A-Z, 0-9, $, _]*";
 		return "[\\p{Alpha}$][\\w$]*|_[\\w$]+";
 	}
 	
-	/**
-	 * string contains 
+	/*
+	 * string contains numbers from 0 to 255
 	 * @return
 	 */
 	static public String numberLess256() {
 		return "[01]\\d{2}|\\d{2}|\\d|2[0-4]\\d|25[0-5]";
 	}
 	
+	/*
+	 * 
+	 * @return regular expression string
+	 * 
+	 */
 	public static String ipV4() {
 		return String.format("((%s)\\.){3}(%s)", numberLess256(), numberLess256());
 	}
 	
 	
+	/******************************
+	 * 
+	 * 	Homework regular expressions
+	 * 
+	 * *****************************/
+	
 	public static String emailPattern() {
-		String userPart = "(\\p{Alnum}[\\w-.]*\\p{Alnum}|\\p{Alnum})";
-		String domainBasePart = "(@\\p{Alnum}[\\p{Alnum}-]*\\p{Alnum}|@\\p{Alnum})";
-		String domainHigherLevelPart = "(\\.\\p{Alpha}+(\\.\\p{Alpha}+)?)";
+		String userPart = "(\\p{Alnum}[\\w-\\.!\"#$%&'()*+./:;<=>?@\\^_`{|}~-]*\\p{Alnum}|\\p{Alnum})@";
+		String domainBasePart = "(\\p{Alnum}[\\p{Alnum}-]*\\p{Alnum}|\\p{Alnum})";
+		String domainHigherLevelPart = "(\\."+domainBasePart+"){1,4}";
 		return userPart + domainBasePart + domainHigherLevelPart;
 	}
 	public static String israelNumberPattern() {
-		return "\\+?972( *-* *\\d){9}";
+		return "\\+972(-*\\d){9}|05[0[2-8]](-*\\d){7}";
+	}
+	public static String simpleArithmeticExpressionPattern() {
+		return" *\\d{1,13}( *[-\\+/\\*] *\\d{1,13})* *";
 	}
 }

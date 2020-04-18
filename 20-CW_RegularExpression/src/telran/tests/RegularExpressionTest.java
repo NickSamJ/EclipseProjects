@@ -8,11 +8,21 @@ import org.junit.jupiter.api.Test;
 
 class RegularExpressionTest {
 
+	private void testTrue(String[] cases, String pattern) {
+		for(String s : cases) {
+			assertTrue(s.matches(pattern));
+		}
+	}
+
+	private void testFalse(String[] cases, String pattern) {
+		for(String s : cases) {
+			assertFalse(s.matches(pattern));
+		}
+	}
 	@Test
 	void testVariableName() {
 		// assertTrue tests
 			
-		
 //		assertTrue("ab3c$_D".matches("^([a-z, A-Z, $, ])[a-z, A-Z, 0-9, $, _]*"));
 		
 		assertTrue("$".matches(variableName()));
@@ -64,43 +74,98 @@ class RegularExpressionTest {
 	@Test 
 	void testEmail() {
 		// assertTrue tests
-		assertTrue("a@a.a".matches(emailPattern()));
-		assertTrue("kokoo@aasdas.aasd".matches(emailPattern()));
-		assertTrue("kokoo@aasdas.aasd".matches(emailPattern()));
-		assertTrue("ko-koo@aasdas.aasd".matches(emailPattern()));
-		assertTrue("ko-koo@aasdas.aasd.ss".matches(emailPattern()));
-		assertTrue("k.s@s.aasd.ss".matches(emailPattern()));
-		assertTrue("k.s@s2.aasd.ss".matches(emailPattern()));
-		assertTrue("k@2.aasd".matches(emailPattern()));
-		
-		// assertTrue tests
-		assertFalse("-name@domain.com".matches(emailPattern()));
-		assertFalse("name@domain.com2".matches(emailPattern()));
-		assertFalse("name_@domain.com".matches(emailPattern()));
-		assertFalse("nam$e@domain.com".matches(emailPattern()));
-		assertFalse("$name@domain.com".matches(emailPattern()));
-		assertFalse("name@@domain.com".matches(emailPattern()));
-		assertFalse("name@-domain.com".matches(emailPattern()));
-		assertFalse("name@domain-.com".matches(emailPattern()));
-		assertFalse("name@doma#in.com".matches(emailPattern()));
-		assertFalse("name@doma in.com".matches(emailPattern()));
-		assertFalse("name@domain22++.com".matches(emailPattern()));
-		assertFalse("name@?domain.com".matches(emailPattern()));
-		assertFalse("name@domain.com.poi.low".matches(emailPattern()));
-		assertFalse("name@domain.".matches(emailPattern()));
-		assertFalse("name@domain.com----".matches(emailPattern()));
-		assertFalse("name@d.cm.22".matches(emailPattern()));
+		String[] trueCases = {
+				"a@a.a",
+				"kokoo@aasdas.aasd",
+				"ko-koo@aasdas.aasd",
+				"ko-koo@aasdas.aasd.ss",
+				"k.s@s.aasd.ss",
+				"k.s@s.aasd.ss.ff",
+				"k.s@s.aasd.ss.o-o",
+				"k.s@s2.aas-d.ss",
+				"k@2.aasd"
+				
+				};
+		testTrue(trueCases, emailPattern());
+
+		// assertFalse tests
+		String[] falseCases = {
+				"-name@domain.com",
+				"name@domain",
+				"name_@domain.com",
+				"name@do_main.com",
+				"n ame@domain.com",
+				"name@@domain.com",
+				"name@-domain.com",
+				"name@domain-.com",
+				"name@doma#in.com",
+				"name@doma in.com",
+				"name@domain22++.com",
+				"name@?domain.com",
+				"name@domain.com.poi.low-",
+				"name@domain.",
+				"name@domain.com----",
+				"name,not@d.cm.22",				
+		};
+		testFalse(falseCases, emailPattern());
 	}
 	
 	@Test
 	void testIsraelNumber() {
-		assertTrue("+972537658899".matches(israelNumberPattern()));
-		assertTrue("+972537658899".matches(israelNumberPattern()));
-		assertTrue("+972 53 76 58 899".matches(israelNumberPattern()));
-		assertTrue("+972-53 76 58 899".matches(israelNumberPattern()));
-		assertTrue("+972 53 - 76 58 899".matches(israelNumberPattern()));
-		assertTrue("+972 53 -76 58 899".matches(israelNumberPattern()));
-		assertTrue("+972 53 76 58 -899".matches(israelNumberPattern()));
+		String[] trueCases = {
+				"+972537658899",
+				"+972-537658899",
+				"+972-53-765-8899",
+				"+97253-6658899",
+				"+972537658-899",
+		};
+		testTrue(trueCases, israelNumberPattern());
+		
+		String[] falseCases = {
+				"057+1223344",
+				"050-1-22-33-445",
+				"50-1-22-33-44",
+				"972-50-1-22-33-445",
+				"++972-050-1-22-33-44",
+				"050-1-22-33-4t5",
+				"057-122—-3344",
+				"057-122—3344",
+				"051-122-33-44\n",
+		};
+		testFalse(falseCases, israelNumberPattern());
+		 		
+	}
+	
+	@Test 
+	void testArithmetic() {
+		String[] trueTestCases = {
+				"2+2",
+				"2*2",
+				"2/2",
+				"2-2",
+				"2+3 /7",
+				"2 / 2 -5",
+				"2-2",
+				"  2 + 2 ",
+				" 3 + 4/2 -15 + 42",
+		};
+		testTrue(trueTestCases, simpleArithmeticExpressionPattern());
+
+		String[] falseTestCases = {
+				"2++2",
+				"+2",
+				"-2",
+				"/2++2",
+				"*2++2",
+				"  2 / 2 4 2",
+				"2+2/",
+				"2+2*",
+				"2+2+",
+				"2+2_",
+				"a + b",
+				"2-n",
+		};
+		testFalse(falseTestCases, simpleArithmeticExpressionPattern());
 	}
 }
 
