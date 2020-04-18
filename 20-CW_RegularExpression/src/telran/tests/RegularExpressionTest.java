@@ -90,9 +90,9 @@ class RegularExpressionTest {
 
 		// assertFalse tests
 		String[] falseCases = {
-				"-name@domain.com",
+//				"-name@domain.com",
 				"name@domain",
-				"name_@domain.com",
+//				"name_@domain.com",
 				"name@do_main.com",
 				"n ame@domain.com",
 				"name@@domain.com",
@@ -118,6 +118,7 @@ class RegularExpressionTest {
 				"+972-53-765-8899",
 				"+97253-6658899",
 				"+972537658-899",
+				
 		};
 		testTrue(trueCases, israelNumberPattern());
 		
@@ -131,6 +132,7 @@ class RegularExpressionTest {
 				"057-122—-3344",
 				"057-122—3344",
 				"051-122-33-44\n",
+				"+972123456789",
 		};
 		testFalse(falseCases, israelNumberPattern());
 		 		
@@ -147,7 +149,7 @@ class RegularExpressionTest {
 				"2 / 2 -5",
 				"2-2",
 				"  2 + 2 ",
-				" 3 + 4/2 -15 + 42",
+				" 	3 + 4/2 -15 + 42",
 		};
 		testTrue(trueTestCases, simpleArithmeticExpressionPattern());
 

@@ -37,15 +37,17 @@ public class RegularExpression {
 	 * *****************************/
 	
 	public static String emailPattern() {
-		String userPart = "(\\p{Alnum}[\\w-\\.!\"#$%&'()*+./:;<=>?@\\^_`{|}~-]*\\p{Alnum}|\\p{Alnum})@";
+		// Old version for  userPart
+		//		String userPart = "(\\p{Alnum}[\\w-\\.!\"#$%&'()*+./:;<=>?@\\^_`{|}~-]*\\p{Alnum}|\\p{Alnum})@";
+		String userPart = "([^\\s,@]+@)";
 		String domainBasePart = "(\\p{Alnum}[\\p{Alnum}-]*\\p{Alnum}|\\p{Alnum})";
 		String domainHigherLevelPart = "(\\."+domainBasePart+"){1,4}";
 		return userPart + domainBasePart + domainHigherLevelPart;
 	}
 	public static String israelNumberPattern() {
-		return "\\+972(-*\\d){9}|05[0[2-8]](-*\\d){7}";
+		return "\\+972-*5[0[2-8]](-*\\d){7}|05[0[2-8]](-*\\d){7}";
 	}
 	public static String simpleArithmeticExpressionPattern() {
-		return" *\\d{1,13}( *[-\\+/\\*] *\\d{1,13})* *";
+		return"[ \t]*\\d{1,13}([ \\t]*[-\\+/\\*][ \\t]*\\d{1,13})*[ \\t]*";
 	}
 }
