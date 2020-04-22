@@ -8,17 +8,36 @@ import telran.util.memory.MemoryService;
 
 class MemoryServiceTests {
 	byte[] array = null;
+
+	/*
+	 *  Uncomment this test with extra long execution time search
+	 */
+	
+//	@Test
+//	void testMemoryService() {
+//		int size = MemoryService.getAvailableMemoryLogSize();
+//		array = new byte[size];
+//		array = null;
+//		try {
+//			array = new byte[size+1];
+//			fail("Expected out of memory exception");
+//			
+//		} catch (OutOfMemoryError e) {
+//			System.out.println(size);
+//		}
+//		
+//	}
 	@Test
-	void testMemoryService() {
-		int size = MemoryService.getAvailableMemoryLogSize();
+	void testMemoryServiceBinary() {
+		int size = MemoryService.binaryGetAvailableMemoryLogSize();
 		array = new byte[size];
 		array = null;
 		try {
 			array = new byte[size+1];
-			fail("Expected out of memory error");
+			fail("Expected out of memory exception");
 			
 		} catch (OutOfMemoryError e) {
-			
+
 		}
 		
 	}
