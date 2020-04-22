@@ -44,8 +44,9 @@ public class RegularExpression {
 		String domainHigherLevelPart = "(\\."+domainBasePart+"){1,4}";
 		return userPart + domainBasePart + domainHigherLevelPart;
 	}
+	
 	public static String israelNumberPattern() {
-		return "\\+972-*5[0[2-8]](-*\\d){7}|05[0[2-8]](-*\\d){7}";
+		return "(\\+972-*|0)5[0[2-8]](-*\\d){7}";
 	}
 	public static String simpleArithmeticExpressionPattern() {
 		return"[ \t]*\\d{1,13}([ \\t]*[-\\+/\\*][ \\t]*\\d{1,13})*[ \\t]*";
