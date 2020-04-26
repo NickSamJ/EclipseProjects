@@ -30,14 +30,17 @@ class MemoryServiceTests {
 	@Test
 	void testMemoryServiceBinary() {
 		int size = MemoryService.binaryGetAvailableMemoryLogSize();
+		System.out.println(size);
 		array = new byte[size];
-		array = null;
-		try {
-			array = new byte[size+1];
-			fail("Expected out of memory exception");
-			
-		} catch (OutOfMemoryError e) {
+		for (int i = 0; i < 10; i++) {
+			array = null;
+			try {
+				array = new byte[size+1];
+				fail("Expected out of memory exception");
+				
+			} catch (OutOfMemoryError e) {
 
+			}
 		}
 		
 	}
