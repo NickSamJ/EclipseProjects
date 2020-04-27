@@ -9,6 +9,21 @@ public class Length {
 		this.unit = unit;
 	}
 	
+	/** Setters and getters ********/
+	public float getNumber() {
+		return this.number;
+	}
+	public LengthUnit getUnit() {
+		return this.unit;
+	}
+	public void setNubmer(float number) {
+		this.number = number;
+	}
+	public void setUnit(LengthUnit unit) {
+		this.unit = unit;
+	}
+	
+	/**  Class Functionality ********/
 	public Length plus(Length length) {
 		length = length.convert(this.unit);
 		float newNumber = this.number + length.getNumber();
@@ -26,33 +41,10 @@ public class Length {
 		Length resLength = new Length(newNumber, unit);
 		return resLength;
 	}
-	
-	public float getNumber() {
-		return this.number;
-	}
-	public LengthUnit getUnit() {
-		return this.unit;
-	}
-	public void setNubmer(float number) {
-		this.number = number;
-	}
-	public void setUnit(LengthUnit unit) {
-		this.unit = unit;
-	}
-	
 	public String toString(){
 		return this.number + this.unit.toString();
 	}
 	
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + Float.floatToIntBits(number);
-//		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
-//		return result;
-//	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,6 +60,4 @@ public class Length {
 			return false;
 		return true;
 	}
-	
-
 }
