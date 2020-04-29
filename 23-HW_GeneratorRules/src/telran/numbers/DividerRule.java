@@ -13,30 +13,29 @@ public class DividerRule implements Rule {
 
 	@Override
 	public void checkRule(int number, int min, int max) throws RuleException {
-		boolean invalidRange = false;
-		if(max - min < divider-1) {
-			int counter = min;
-			invalidRange = true;
-			while(counter <= max) {
-				if(counter % divider == 0) {
-					invalidRange = false;
-					break;
-				}
-				counter++;
-			}
-				
+		
+		if(min>=max || divider > max ) {
+			throw new RangeException("DontContainAnyValue");
 		}
-		if(min>=max || invalidRange) {
-			throw new RangeException("Range exception <-");
+		if( number < divider) { 
+			throw new RangeException("DividerGreaterThanNumber");
 		}
 		int delta = 0;
+
 		if(number % divider != 0) {
 			int lDist = number % divider;
 			int rDist = divider - lDist;
 			
-			delta = lDist <= rDist ? (min<=lDist ? -lDist: rDist) : (max>=rDist ? rDist: -lDist);
+			if(number + rDist <= max && number - lDist >= min ) {				
+				delta = lDist <= rDist ? (min<=lDist ? -lDist: rDist) : (max>=rDist ? rDist: -lDist);
+			}else if(number + rDist > max && number - lDist >= min ) {
+				delta = - lDist;
+			}else if(number + rDist <= max && number - lDist < min ) {
+				delta = rDist;
+			}else {
+				throw new RangeException("DontContainAnyValue");
+			}
 			throw new RuleException(delta);
 		}
 	}
-
 }

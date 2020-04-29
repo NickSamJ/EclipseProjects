@@ -1,5 +1,6 @@
 package telran.numbers;
 
+import telran.exceptions.RangeException;
 import telran.exceptions.RuleException;
 
 public class Generator{
@@ -25,10 +26,13 @@ public class Generator{
 			try {
 				rule.checkRule(rndNumber, min, max);
 				res[addCounter++] = rndNumber;
-			} catch (Exception e) {
+			} catch(RangeException e) {
+				if(e.getMessage() == "DontContainAnyValue") {
+					throw new RangeException("Not in range");
+				};
 			}
-			
-			
+			catch (Exception e) {
+			}
 		}
 		return res;
 	}

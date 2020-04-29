@@ -12,7 +12,7 @@ import telran.numbers.Generator;
 class GeneratorRulesTests {
 
 	DividerRule divider10 = new DividerRule(10);
-	int min = 1, max = 10000, nNumbers = 1000000;
+	int min = 0, max = 10000, nNumbers = 1000000;
 		@Test
 		void testGenerate() {
 			
@@ -59,3 +59,5 @@ class GeneratorRulesTests {
 			}
 		}
 }
+
+
