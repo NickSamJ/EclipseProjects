@@ -1,6 +1,7 @@
 package telran.numbers;
 
 import telran.exceptions.RangeException;
+import telran.exceptions.RuleException;
 
 public class Generator {
 	private int min;
@@ -24,10 +25,8 @@ public class Generator {
 			try {
 				rule.checkRule(randomInt, min, max);
 				res[counter++] = randomInt;
-			}catch(RangeException e) {
-				throw new RangeException("Can't find numbers in diapason");
-			}catch(Exception e) {
-				
+			}catch(RuleException e) {
+				res[counter++] = randomInt + e.getDelta();
 			}
 		}
 		return (res);
