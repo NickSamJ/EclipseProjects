@@ -26,8 +26,8 @@ public class DividerRule implements Rule {
 	private int getDelta(int number, int min, int max) {
 		int lDist = number % divider;
 		int rDist = divider - lDist;
-		boolean lFits = (number - lDist >= min) ? true : false;
-		boolean rFits = number + rDist <= max ? true : false;
+		boolean lFits = (number - lDist >= min);
+		boolean rFits = number + rDist <= max;
 
 		if((number - lDist) / divider < 1) {
 			lFits = false;
