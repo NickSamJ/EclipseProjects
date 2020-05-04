@@ -7,12 +7,10 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import telran.adjusters.WorkingDaysAdjuster;
+import telran.WorkingDays;
+
 
 class WorkingDaysTests {
-//	private DayOfWeek[] daysOff = new DayOfWeek[] {DayOfWeek.SATURDAY, DayOfWeek.SUNDAY};
-//	private int nWorkingDays = 1;
-
 
 	@Test
 	void testDaysOff() {
@@ -48,7 +46,7 @@ class WorkingDaysTests {
 		
 	}
 	void checkWorkingDays(String expected, String startDate, int nWorkingDays, DayOfWeek[] daysOff ) {
-		String actual = LocalDate.parse(startDate).with(new WorkingDaysAdjuster(nWorkingDays, daysOff)).toString();
+		String actual = LocalDate.parse(startDate).with(new WorkingDays(nWorkingDays, daysOff)).toString();
 		assertEquals(expected, actual);
 	}
 

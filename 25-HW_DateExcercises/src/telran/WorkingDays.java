@@ -1,5 +1,4 @@
-package telran.adjusters;
-
+package telran;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,14 +7,14 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 
-public class WorkingDaysAdjuster implements TemporalAdjuster{
+public class WorkingDays implements TemporalAdjuster{
 
 	private DayOfWeek[] daysOff = new DayOfWeek[] {DayOfWeek.SATURDAY, DayOfWeek.SUNDAY};
 	private int workingDays = 0;
 
-	public WorkingDaysAdjuster() {}
+	public WorkingDays() {}
 	
-	public WorkingDaysAdjuster(int workingDays, DayOfWeek[] daysOff) {
+	public WorkingDays(int workingDays, DayOfWeek[] daysOff) {
 		this.workingDays = workingDays;
 		this.daysOff = daysOff;
 	}
@@ -45,10 +44,6 @@ public class WorkingDaysAdjuster implements TemporalAdjuster{
 			}
 		}
 		return false;
-	}
-	public static void main(String[] args) {
-		WorkingDaysAdjuster a = new WorkingDaysAdjuster();
-		System.out.println(a.adjustInto(LocalDate.parse("2020-10-10")).toString());
 	}
 }
 

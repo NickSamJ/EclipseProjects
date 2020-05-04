@@ -1,26 +1,21 @@
+package telran;
 import java.text.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
+import java.util.TimeZone;
 
 
-public class TymeOperationsAppl {
+public class DateTimeOperationsAppl {
 	public static void displayCompleteAge(String birthDate) {
 		LocalDate parsedDate = parseIfValid(birthDate);
 		LocalDate now =  LocalDate.now();
 		Period diff = Period.between(parsedDate, now);
 
-		System.out.printf("Years: %d\nMonthes: %d\nDays: %d", 
+		System.out.printf("Years: %d | Monthes: %d | Days: %d\n", 
 				diff.getYears(), diff.getMonths(), diff.getDays());
-
-/******		Old version   ****/
-//		int years = (int) ChronoUnit.YEARS.between(parsedDate, now);
-//		now = now.minus(years, ChronoUnit.YEARS);
-//		int monthes = (int) ChronoUnit.MONTHS.between(parsedDate, now);
-//		now = now.minus(monthes, ChronoUnit.MONTHS);
-//		int days = (int) ChronoUnit.DAYS.between(parsedDate, now);
-		
-//		System.out.printf("Years: %d\nMonthes: %d\nDays: %d", years, monthes, days);
 	}
 
     public static LocalDate parseIfValid(String dateStr) {
@@ -34,7 +29,20 @@ public class TymeOperationsAppl {
         return date;
     }
     
+    public static void displayTimezoneId(String zonePattern) {
+    	zonePattern = zonePattern.toLowerCase();
+    	String pattern = "\\p{Alpha}*/?"+zonePattern+"/?\\p{Alpha}*";
+    	for(String s : ZoneId.getAvailableZoneIds()) {
+    		if(s.toLowerCase().matches(pattern)) {
+    			System.out.println(s + " : " + ZonedDateTime.now(ZoneId.of(s)));
+    		}
+    	}
+    }
+    
     public static void main(String[] args) {
+    	displayTimezoneId("CaNaDa");
+    	displayCompleteAge("06/06/1799");
     	displayCompleteAge("1799-06-06");
+    	displayCompleteAge("06.06.1779");
     }
 }
