@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import telran.measure.Length;
 import telran.measure.LengthUnit;
 
-class LengthTest {
-
+public class LengthTest {
 	Length length1=new Length(10.f,LengthUnit.M);
 	Length length2=new Length(1000.f,LengthUnit.CM);
 	Length length3=new Length(20.f,LengthUnit.M);

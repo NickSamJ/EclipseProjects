@@ -5,18 +5,21 @@ import java.util.Locale;
 public class CalendarApplication {
 	private static  Locale locale = Locale.UK;
 	private static int columnWidth = 4;
+	private static String startDay = "MONDAY";
 
 	public static void main(String[] args) {
 		try {
-			int[] yearMonth = getYearMonth(args); // [0] - year, [1] - month			
+			int[] yearMonth = getYearMonth(args); // [0] - year, [1] - month
+			if(args.length == 3) {
+				startDay = (args[2]);
+			}
 			printCalendar(yearMonth[0], yearMonth[1]);
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	/**
-	 */
 	private static void printCalendar(int year, int month) {
 		printTitle(year, month);
 		printDaysOfWeek();
@@ -55,14 +58,24 @@ public class CalendarApplication {
 
 	private static int getFirstDayOfWeek(int year, int month) {
 		LocalDate date = LocalDate.of(year, month, 1);
-		
-		return date.getDayOfWeek().getValue();
+		int startDayValue = DayOfWeek.valueOf(startDay).ordinal();
+		int dateValue = date.getDayOfWeek().getValue();
+
+		if(startDayValue + 1 == dateValue) {
+			return date.getDayOfWeek().getValue();
+		};
+		return dateValue +7 - startDayValue;
 	}
 
 	private static void printDaysOfWeek() {
 		printOffset(columnWidth /2);
-		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
-			System.out.print(dayOfWeek.getDisplayName(TextStyle.SHORT, locale) + " ");
+		int start = DayOfWeek.valueOf(startDay).ordinal();
+		
+		DayOfWeek[] daysValues = DayOfWeek.values();
+		
+		for(int i = 0; i < 7; i++) {
+			if(start == 7) start = 0;
+			System.out.print(daysValues[start++].getDisplayName(TextStyle.SHORT, locale) + " ");
 		}
 		System.out.println();
 	}

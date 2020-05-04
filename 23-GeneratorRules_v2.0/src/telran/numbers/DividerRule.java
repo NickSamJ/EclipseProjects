@@ -5,6 +5,7 @@ import telran.exceptions.RuleException;
 
 public class DividerRule implements Rule {
 
+	
 	private int divider;
 	
 	public DividerRule(int divider){
@@ -53,4 +54,5 @@ public class DividerRule implements Rule {
 		}
 		return lDist < rDist ? (lFits ? -lDist : rDist) : (rFits ? rDist : -lDist);
 	}
+
 }

@@ -37,6 +37,18 @@ class AdditionalTests {
 			} catch(Exception e) {
 			}		
 		}
+		
+		@Test
+		void testTemp3() {
+			DividerRule divider10 = new DividerRule(10);
+			int min = 25, max = 35;
+			try {
+				divider10.checkRule(5, min, max);
+//				fail("Unexpected Exception");
+			} catch(Exception e) {
+//				System.out.println(e.getMessage());
+			}		
+		}
 }
 
 
