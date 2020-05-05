@@ -40,7 +40,15 @@ public class DateTimeOperationsAppl {
     }
     
     public static void main(String[] args) {
+    	System.out.println("Printing Timezone:");
     	displayTimezoneId("CaNaDa");
+    	
+    	System.out.println("\nPrinting Next working day with WorkingDays Adjuster \nAfter 10 Wroking days:");
+    	DayOfWeek[] daysOff = new DayOfWeek[] {DayOfWeek.SATURDAY, DayOfWeek.SUNDAY};
+    	String expecetedDay = LocalDate.now().with(new WorkingDays(10, daysOff)).toString();
+    	System.out.println(expecetedDay);
+
+    	System.out.println("\nPrinting Complete ages:");
     	displayCompleteAge("06/06/1799");
     	displayCompleteAge("1799-06-06");
     	displayCompleteAge("06.06.1779");
