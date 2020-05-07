@@ -31,9 +31,10 @@ public class DateTimeOperationsAppl {
     
     public static void displayTimezoneId(String zonePattern) {
     	zonePattern = zonePattern.toLowerCase();
-    	String pattern = "\\p{Alpha}*/?"+zonePattern+"/?\\p{Alpha}*";
+//    	String pattern = "\\p{Alpha}*/?"+zonePattern+"/?\\p{Alpha}*";
     	for(String s : ZoneId.getAvailableZoneIds()) {
-    		if(s.toLowerCase().matches(pattern)) {
+//    		if(s.toLowerCase().matches(pattern)) {
+    			if(s.toLowerCase().contains(zonePattern)) {
     			System.out.println(s + " : " + ZonedDateTime.now(ZoneId.of(s)));
     		}
     	}
@@ -43,7 +44,7 @@ public class DateTimeOperationsAppl {
     	System.out.println("Printing Timezone:");
     	displayTimezoneId("CaNaDa");
     	
-    	System.out.println("\nPrinting Next working day with WorkingDays Adjuster \nAfter 10 Wroking days:");
+    	System.out.println("\nPrinting Next working day with WorkingDays Adjuster \n(After 10 Wroking days:");
     	DayOfWeek[] daysOff = new DayOfWeek[] {DayOfWeek.SATURDAY, DayOfWeek.SUNDAY};
     	String expecetedDay = LocalDate.now().with(new WorkingDays(10, daysOff)).toString();
     	System.out.println(expecetedDay);

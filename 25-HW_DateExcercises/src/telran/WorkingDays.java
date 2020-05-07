@@ -10,9 +10,11 @@ import java.time.temporal.TemporalAdjuster;
 public class WorkingDays implements TemporalAdjuster{
 
 	private DayOfWeek[] daysOff = new DayOfWeek[] {DayOfWeek.SATURDAY, DayOfWeek.SUNDAY};
-	private int workingDays = 0;
+	private int workingDays;
 
-	public WorkingDays() {}
+	public WorkingDays(int workingDays) {
+		this.workingDays = workingDays;
+	}
 	
 	public WorkingDays(int workingDays, DayOfWeek[] daysOff) {
 		this.workingDays = workingDays;
@@ -30,7 +32,7 @@ public class WorkingDays implements TemporalAdjuster{
 		}
 		int counter = 0;
 		while (counter <= workingDays) {
-			res = res.plus(1,ChronoUnit.DAYS);
+			res = res.plus(1, ChronoUnit.DAYS);
 			if(!checkIfDayOff(res)) {
 				counter++;
 			}
