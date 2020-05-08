@@ -24,7 +24,7 @@ class NumberBoxTests {
 	@Test
 	void testNumberBox() {
 		// Change line below to ArrayListNumbersBox, LinkedListNumbersBox, HashSetNumbersBox,TreeSetNumbersBox
-		ArrayListNumbersBox numBox = new ArrayListNumbersBox();
+		TreeSetNumbersBox numBox = new TreeSetNumbersBox();
 		numBox.addNumber(100);
 		numBox.addNumber(40);
 		numBox.addNumber(60);
