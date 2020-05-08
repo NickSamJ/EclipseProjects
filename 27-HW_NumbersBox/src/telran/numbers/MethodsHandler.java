@@ -35,6 +35,9 @@ public class MethodsHandler implements NumbersBox {
 
 	@Override
 	public int removeRepeated() {
+		if(obj instanceof Set) {
+			return 0;
+		}
 		LinkedHashSet<Integer> orderedSet = new LinkedHashSet<>((Collection<Integer>) obj);
 		int numberRemoved = ((Collection<Integer>)obj).size() - orderedSet.size();
 		((Collection<Integer>)obj).clear();
