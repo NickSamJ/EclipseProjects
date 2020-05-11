@@ -33,19 +33,19 @@ class NumberBoxTests {
 		numBox.addNumber(-1);
 		
 		int[] expected = {100, 40, 60, 50, 80, -1}; 
-		compareArrays(expected, numBox);
+		testArrays(expected, numBox);
 		
 		numBox.removeNumber(80);
 		numBox.removeNumber(100);
 		
 		int[] expected2 = {40, 60, 50, -1}; 
-		compareArrays(expected2, numBox);
+		testArrays(expected2, numBox);
 		
 		int delAmount = numBox.removeNumbersInRange(45,65);
 		int[] expected3 = {40, -1};
 		assertEquals(2, delAmount);
 		
-		compareArrays(expected3, numBox);
+		testArrays(expected3, numBox);
 		
 		numBox.addNumber(50);
 		numBox.addNumber(50);
@@ -60,12 +60,12 @@ class NumberBoxTests {
 		}
 		
 		int[] expected4 = {40, -1, 50};
-		compareArrays(expected4, numBox);
+		testArrays(expected4, numBox);
 		assertTrue(numBox instanceof Iterable);
 		
 	}
 
-	private void compareArrays(int[] expected, NumbersBox actual) {
+	private void testArrays(int[] expected, NumbersBox actual) {
 		int[] actualArray = new int[expected.length];
 		int i = 0;
 		for(int number : actual) {

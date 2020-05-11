@@ -54,7 +54,6 @@ public class MethodsHandler implements NumbersBox {
 			return  prevSize-((Collection)obj).size();
 		}
 		if(obj instanceof Set) {
-			System.out.println("TRUE");
 			((Set)obj).removeIf(u -> ((int)u > from && (int)u < to));
 		}
 		return  prevSize-((Collection)obj).size();
