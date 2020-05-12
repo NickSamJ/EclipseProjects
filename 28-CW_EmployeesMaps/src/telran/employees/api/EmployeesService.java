@@ -9,9 +9,9 @@ EmployeesReturnCodes removeEmployee(long id);
 Employee getEmployee(long id);
 Iterable<Employee> getEmployees();
 Iterable<Employee> getEmployeesCompany(String company);
-Iterable<Employee> getEmloyeesAges(int ageFrom, int ageTo);
-Iterable<Employee> getEmloyeesSalary(int salaryFrom, int salaryTo);
+Iterable<Employee> getEmployeesAges(int ageFrom, int ageTo);
+Iterable<Employee> getEmployeesSalary(int salaryFrom, int salaryTo);
 EmployeesReturnCodes updateCompany(long id, String newCompany);
-EmployeesReturnCodes updateSALARY(long id, int newSalary)	;
+EmployeesReturnCodes updateSalary(long id, int newSalary);
 
 }
