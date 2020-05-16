@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class Anagram {
 	public static boolean isAnagram(String word, String anagram) {
@@ -14,11 +15,21 @@ public class Anagram {
 		for (int i = 0; i< anagram.length(); i++) {
 			int count = wordArrange.getOrDefault(anagram.charAt(i), 0);
 			if(count==0) return false;
-			wordArrange.put(anagram.charAt(i), count-1);
+//			wordArrange.put(anagram.charAt(i), count-1);
+			
+			wordArrange.merge(anagram.charAt(i), 1, (prev, one) -> {
+				return prev - one;
+			});
 		}
 		return true;
 	}
 	
+
+	
+	private static void check(char prev, char one) {
+//		return null;
+	}
+
 	private static	 HashMap<Character, Integer> getMapCounts(String string) {
 		HashMap<Character, Integer> resMap = new HashMap<>();
 		for (int i = 0; i< string.length(); i++) {
@@ -32,3 +43,5 @@ public class Anagram {
 		
 	}
 }
+
+   

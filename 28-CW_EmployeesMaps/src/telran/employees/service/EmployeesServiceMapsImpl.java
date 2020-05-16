@@ -7,6 +7,7 @@ import telran.employees.dto.EmployeesReturnCodes;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class EmployeesServiceMapsImpl implements EmployeesService {
 private HashMap<Long, Employee> employees = new HashMap<>();
@@ -93,12 +94,10 @@ private TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>();
 
 	@Override
 	public Iterable<Employee> getEmployeesAges(int ageFrom, int ageTo) {
-//		TreeMap<Integer, List<Employee>> subAges = (TreeMap<Integer, List<Employee>>) employeesAge.subMap(ageFrom, ageTo);
 		NavigableMap<Integer, List<Employee>> subAges = (NavigableMap<Integer, List<Employee>>) employeesAge.subMap(ageFrom,true, ageTo, true);
 		ArrayList<Employee> resList = new ArrayList<>();
-		for(List <Employee> list : subAges.values()) {
-			resList.addAll(list);
-		}
+		Stream.of(subAges).flatMap(e -> e.values().stream()).forEach(item -> resList.addAll(item));
+
 		return resList;
 	}
 
@@ -106,9 +105,7 @@ private TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>();
 	public Iterable<Employee> getEmployeesSalary(int salaryFrom, int salaryTo) {
 		NavigableMap<Integer, List<Employee>> subSalaries = (NavigableMap<Integer, List<Employee>>) employeesSalary.subMap(salaryFrom, true, salaryTo, true);
 		ArrayList<Employee> resList= new ArrayList<>();
-		for(List <Employee> list : subSalaries.values()) {
-			resList.addAll(list);
-		}
+		Stream.of(subSalaries).flatMap(e -> e.values().stream()).forEach(item -> resList.addAll(item));
 		return resList;
 	}
 

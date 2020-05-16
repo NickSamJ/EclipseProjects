@@ -1,8 +1,18 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.function.BinaryOperator;
 
 public class Calculator {
+	static HashMap<String, BinaryOperator<Double>> mapOperations;
+	static {
+		mapOperations = new HashMap<>();
+		mapOperations.put("+", (op1, op2) -> op1 + op2);
+		mapOperations.put("-", (op1, op2) -> op1 - op2);
+		mapOperations.put("*", (op1, op2) -> op1 * op2);
+		mapOperations.put("/", (op1, op2) -> op1 == 0 ? Double.POSITIVE_INFINITY : op1/op2);
+	}
 	static public double calculate(String expr) {
 		String[] operands = getOperands(expr);
 		String[] operations = getOperations(expr);
@@ -18,18 +28,25 @@ public class Calculator {
 		
 	}
 	public static double calculateOne(double op1, String op2, String operation) {
-		double doubleOp2 = Double.parseDouble(op2);
-		switch (operation) {
-			case "+": return op1 + doubleOp2; 
-			case "-": return op1 - doubleOp2;
-			case "*": return op1 * doubleOp2;
-			case "/":
-				if(doubleOp2==0) {
-					return Double.POSITIVE_INFINITY;
-				}
-				return op1 / doubleOp2;
+		try {
+		double opNumber = Double.parseDouble(op2);
+		return mapOperations.getOrDefault(operation, (a, b) -> Double.NaN).apply(op1, opNumber);
+		}catch(Exception e) {
+			return Double.NaN;
 		}
-		return Double.NaN;
+		
+//		double doubleOp2 = Double.parseDouble(op2);
+//		switch (operation) {
+//			case "+": return op1 + doubleOp2; 
+//			case "-": return op1 - doubleOp2;
+//			case "*": return op1 * doubleOp2;
+//			case "/":
+//				if(doubleOp2==0) {
+//					return Double.POSITIVE_INFINITY;
+//				}
+//				return op1 / doubleOp2;
+//		}
+//		return Double.NaN;
 	}
 
 	public static String[] getOperations(String expr) {
