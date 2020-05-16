@@ -27,9 +27,10 @@ public class StreamsFunctionality {
 			.forEach(e -> System.out.print(arr[e] + ", "));
 	}
 	public static void main(String[] args) {
+		System.out.println("Sport Loto numbers:");
+		displaySportLotoNumbers(1, 90, 90);
 		
-		displaySportLotoNumbers(99, 100, 2);
-		
+		System.out.println("\nShuffled Array: ");
 		int[] arr = {1, 2, 3, 4, 5, 6};
 		displayShufflingArray(arr);
 		
