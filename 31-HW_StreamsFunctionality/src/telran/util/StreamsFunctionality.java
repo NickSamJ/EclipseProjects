@@ -9,15 +9,12 @@ import java.util.stream.Stream;
 
 public class StreamsFunctionality {
 	public static void displaySportLotoNumbers(int min, int max, int nNumbers) {
-		
+		if(max-min+1 < nNumbers) throw new RuntimeException("Can't fillwith not repeatsble numbers");
 		new Random()
 				.ints( min, max+1)
 				.distinct()
 				.limit(nNumbers)
-				.forEach(e -> {
-					if(max-min+1 < nNumbers) throw new RuntimeException("Can't fillwith not repeatsble numbers"); 
-					System.out.print(e + ", ");
-					});
+				.forEach(e -> 	System.out.print(e + ", "));
 	}
 	
 	public static void displayShufflingArray(int[] arr) {
