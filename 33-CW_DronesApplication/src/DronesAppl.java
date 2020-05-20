@@ -14,20 +14,20 @@ public class DronesAppl {
 	static List<Drone> dronesInAir;
 	static List<Drone> dronesInQueue;
 	static String[] heights = {"one",
-								"two",
-								"three",
-								"four",
-								"five",
-								"six",
-								"seven",
-								"eight",
-								"nine",
-								"ten",
-								"eleven",
-								"twelve",
-								"thirteen",
-								"fourteen",
-								"fifteen"};
+							"two",
+							"three",
+							"four",
+							"five",
+							"six",
+							"seven",
+							"eight",
+							"nine",
+							"ten",
+							"eleven",
+							"twelve",
+							"thirteen",
+							"fourteen",
+							"fifteen"};
 	static HashMap<String, Integer> heightsCounts = new HashMap<>();
 
 	public static void main(String[] args) {
@@ -51,7 +51,7 @@ public class DronesAppl {
 
 	private static void printHeightsWithMaxFlights() {
 		
-		// getting highest amount of flight on one Height
+		// getting highest amount of flights on one Height
 		int maxVal = heightsCounts.entrySet()
 					.stream()
 					.map(e -> e.getValue())
@@ -107,7 +107,6 @@ public class DronesAppl {
 	}
 
 	private static void takingOffOnIteration(int nIteration, List<String> freedHeights) {
-		// HW Part
 		Iterator<Drone> it = dronesInQueue.iterator();
 		for (int i = 0; i < freedHeights.size(); i++) {
 			Drone drone = it.next();
@@ -116,8 +115,6 @@ public class DronesAppl {
 			takeOff(drone, nIteration, freedHeights.get(i));
 			
 		}
-		//______END
-
 	}
 
 	private static List<String> landingOnIteration(int nIteration) {
