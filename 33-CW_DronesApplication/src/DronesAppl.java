@@ -27,7 +27,13 @@ public class DronesAppl {
 							"twelve",
 							"thirteen",
 							"fourteen",
-							"fifteen"};
+							"fifteen",
+//							"6",
+//							"7",
+//							"8",
+//							"9",
+//							"10"
+							};
 	static HashMap<String, Integer> heightsCounts = new HashMap<>();
 
 	public static void main(String[] args) {
@@ -64,6 +70,8 @@ public class DronesAppl {
 				.filter(e -> (e.getValue() == maxVal) )
 				.map(o -> o.getKey())
 				.collect(Collectors.toList());
+		
+		
 		System.out.println("The most used heights: " + mostUsed);		
 	}
 
