@@ -34,20 +34,20 @@ public class FileSystemTestAppl {
 //		displayDirectoryContent(fs.getPath("/Users/user/eclipse-workspace/"), 0);
 		
 		// Start is here
-//		displayDirectoryContent(fs.getPath("/System"), 1);
+		displayDirectoryContent(fs.getPath(".."), 0);
 		
-		Path filePathSource = fs.getPath("src/FileSystemTestAppl.java");
+//		Path filePathSource = fs.getPath("src/FileSystemTestAppl.java");
 //		Path filePathDest = fs.getPath("CopyFileSystemTestAppl");
-		InputStream input = Files.newInputStream(filePathSource);
-		OutputStream output = new FileOutputStream("CopyFileSystemTestAppl");
-		
-		byte[] buffer = new byte[input.available()];
-		input.read(buffer);
-		
+//		InputStream input = Files.newInputStream(filePathSource);
+//		OutputStream output = new FileOutputStream("CopyFileSystemTestAppl");
+//		
+//		byte[] buffer = new byte[input.available()];
+//		input.read(buffer);
+//		
 		//take care of it
 //		output.write(b, off, len);
-		output.write(buffer);
-		output.close();
+//		output.write(buffer);
+//		output.close();
 		
 	}
 
@@ -60,7 +60,7 @@ public class FileSystemTestAppl {
 			System.out.println(e.getFileName());
 			if (Files.isDirectory(e)) {
 				try {
-					displayRecursive(e, 0, 0);
+					displayRecursive(e, 1, 0);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -73,14 +73,20 @@ public class FileSystemTestAppl {
 
 	private static void displayRecursive(Path path, int level, int depth) throws IOException {
 		int lvl = level + 1;
-		if(level == depth) {
+		if(level == depth ) {
 			return;
 		}
 		Files.list(path).forEach(e -> {
-			System.out.println(" ".repeat(NUMBER_SPACES));
-			System.out.println(e.getFileName());
+			
 			try {
-				displayRecursive(e, lvl, depth);
+				if(Files.isDirectory(e)) {
+					System.out.print(" ".repeat(lvl * NUMBER_SPACES));
+					System.out.println(e.getFileName());
+					displayRecursive(e, lvl, depth);
+				}else {
+					System.out.print(" ".repeat(lvl * NUMBER_SPACES));
+					System.out.println(e.getFileName());
+				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
