@@ -21,10 +21,14 @@ public class Runner {
 		
 		ChatStatistics stat = new ChatStatistics(fileSource);
 //		stat.printMessagesPerUser();
+//		stat.printWordsPerUser();
 //		stat.printTotalMessages();
-		stat.printPercentStatictics();
-		stat.printAveragePercent();
-//		stat.saveAllStatistics();
+//		stat.printTotalWords();
+//		stat.printTotalUsers();
+//		
+//		stat.printPercentStatictics();
+//		stat.printAveragePercent();
+		stat.saveAllStatistics();
 	}
 
 }
