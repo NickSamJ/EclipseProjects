@@ -1,0 +1,8 @@
+Test name: Copying using class "Files"
+Execution time: 2567
+Test name: Copying using Streams. Buffer size = 100 bytes
+Execution time: 81188
+Test name: Copying using Streams. Buffer size = 100 Mb
+Execution time: 2463
+Test name: Copying using Streams. Buffer size = Runtime.getRuntime().freeMemory()
+Execution time: 4009

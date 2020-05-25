@@ -29,7 +29,6 @@ public class ChatStatistics {
 
 	private String currentNumber;
 	private void generateStatObj() {
-		HashMap<String, Integer> contacts = new HashMap<>();
 		
 		FileSystem fs = FileSystems.getDefault();
 		Path filePath = fs.getPath(chatFile).toAbsolutePath();
