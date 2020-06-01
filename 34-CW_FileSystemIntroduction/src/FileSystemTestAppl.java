@@ -36,18 +36,18 @@ public class FileSystemTestAppl {
 		// Start is here
 		displayDirectoryContent(fs.getPath(".."), 0);
 		
-//		Path filePathSource = fs.getPath("src/FileSystemTestAppl.java");
-//		Path filePathDest = fs.getPath("CopyFileSystemTestAppl");
-//		InputStream input = Files.newInputStream(filePathSource);
-//		OutputStream output = new FileOutputStream("CopyFileSystemTestAppl");
-//		
-//		byte[] buffer = new byte[input.available()];
-//		input.read(buffer);
+		Path filePathSource = fs.getPath("src/FileSystemTestAppl.java");
+		Path filePathDest = fs.getPath("CopyFileSystemTestAppl");
+		InputStream input = Files.newInputStream(filePathSource);
+		OutputStream output = new FileOutputStream("CopyFileSystemTestAppl");
+		
+		byte[] buffer = new byte[input.available()];
+		input.read(buffer);
 //		
 		//take care of it
 //		output.write(b, off, len);
-//		output.write(buffer);
-//		output.close();
+		output.write(buffer);
+		output.close();
 		
 	}
 
@@ -62,7 +62,6 @@ public class FileSystemTestAppl {
 				try {
 					displayRecursive(e, 1, 0);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

@@ -39,6 +39,8 @@ private static String getPassword() {
 	Scanner scanner = new Scanner(System.in);
 	Console console = System.console();
 //	dedew
+	
 	return console == null ? scanner.nextLine() : new String(console.readPassword());
+	
 }
 }
