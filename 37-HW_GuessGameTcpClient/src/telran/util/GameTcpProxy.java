@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class GameTcpProxytwo {
+public class GameTcpProxy {
 	private static final String HOST = "localhost";
 	private static final int PORT = 3008;
 	private static int steps = 0;
@@ -29,7 +29,7 @@ public class GameTcpProxytwo {
 				if(response.matches("win#\\d*{4}")) {
 					String res = response.split("#")[1];
 					System.out.println("you won in "+ steps +" steps, correct answer is " + res
-							+ "\nPress any key to escape");
+							+ "\nEnter any value to escape");
 					while(true) {
 						if (scanner.nextLine() != null) return;
 					}
