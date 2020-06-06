@@ -37,8 +37,6 @@ public class RegularExpression {
 	 * *****************************/
 	
 	public static String emailPattern() {
-		// Old version for  userPart
-		//		String userPart = "(\\p{Alnum}[\\w-\\.!\"#$%&'()*+./:;<=>?@\\^_`{|}~-]*\\p{Alnum}|\\p{Alnum})@";
 		String userPart = "([^\\s,@]+@)";
 		String domainBasePart = "(\\p{Alnum}[\\p{Alnum}-]*\\p{Alnum}|\\p{Alnum})";
 		String domainHigherLevelPart = "(\\."+domainBasePart+"){1,4}";
