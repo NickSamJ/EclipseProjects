@@ -32,16 +32,17 @@ public class AddEmployeeItem extends AbstractEmployeesItem {
 	@Override
 	public void perform() {
 		String email = io.inputEmail("Enter employee email");
+		if (employees.containsKey(email)) {
+			io.displayLine("User already exists/n");
+			return;
+		}
 		String phone = io.inputPhoneNumber("Enter Phone Number");
 		LocalDate birthDate = io.inputDate("Enter birth date in format 2000-11-22");
 		int salary = io.inputInteger("Enter salary");
 		String title = io.inputOptions("Enter Position", allowedPositions());
-		if (employees.containsKey(email)) {
-			io.displayLine("Already exists\n");
-		}else {			
-			employees.put(email, new Employee(email, phone, birthDate, salary, title));
-			io.displayLine("Added\n");
-		}
+		
+		employees.put(email, new Employee(email, phone, birthDate, salary, title));
+		io.displayLine("Added\n");
 
 	}
 

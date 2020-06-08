@@ -42,7 +42,7 @@ public interface InputOutput {
 	}
 	
 	default Integer inputInteger(String prompt) {
-		String errorMessage = "Please enter any number";
+		String errorMessage = "It is not a number";
 		Integer result = inputObject(prompt, errorMessage, s -> {
 			return Integer.parseInt(s);
 		});
@@ -50,7 +50,7 @@ public interface InputOutput {
 	}
 	
 	default String inputOptions(String prompt, Set<String> options) {
-		String errorMessage = "Entered value not correct";
+		String errorMessage = "Wrong value entered";
 		Function<String, String> check = e -> options.contains(e) ? e : null;
 
 		return inputObject(prompt, errorMessage, check);
@@ -58,7 +58,7 @@ public interface InputOutput {
 	
 	default LocalDate inputDate(String prompt) {
 		
-		String errorMessage = "Please, enter date in format like 2020-02-25";
+		String errorMessage = "Wrong date format, should be ISO (YYYY-MM-DD)";
 		LocalDate res = inputObject(prompt, errorMessage, e -> {
 			return LocalDate.parse(e);
 		});
@@ -68,7 +68,7 @@ public interface InputOutput {
 	
 	default String inputEmail(String prompt) {
 		
-		String errorMessage = "Please, enter email";
+		String errorMessage = "This is not email";
 		String res = inputObject(prompt, errorMessage, e -> {
 			
 			return e.matches(Patterns.emailPattern()) ? e : null;
@@ -78,13 +78,13 @@ public interface InputOutput {
 	}
 	
 	default String inputPhoneNumber(String prompt) {
-		String errorMessage = "Please, enter correct phone number";
+		String errorMessage = "Wrong phone number";
 		Function<String, String> check = e -> e.matches(Patterns.israelNumberPattern()) ? e : null; 
 		return inputObject(prompt, errorMessage, check);
 	}
 	
 	default String inputIpV4(String prompt) {
-		String errorMessage = "Please, enter correct IPv4";
+		String errorMessage = "Not IPv4";
 		Function<String, String> check = e -> e.matches(Patterns.ipV4()) ? e: null;
 		return inputObject(prompt, errorMessage, check);
 	}
