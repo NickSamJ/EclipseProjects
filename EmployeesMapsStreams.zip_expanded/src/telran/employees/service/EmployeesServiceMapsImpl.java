@@ -1,14 +1,11 @@
 package telran.employees.service;
 
 import telran.employees.api.EmployeesService;
-import telran.employees.dto.CompanySalary;
-import telran.employees.dto.Employee;
-import telran.employees.dto.EmployeesReturnCodes;
+import telran.employees.dto.*;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 public class EmployeesServiceMapsImpl implements EmployeesService {
