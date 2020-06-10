@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -8,16 +7,14 @@ import telran.calculator.net.*;
 
 public class CalculatorImpl {
 private static final String HOST = "localhost";
-private static final Integer PORT = 5000;
+private static final Integer PORT = 4000;
 	static ICalculator calc= new CalculatorTcpProxy(HOST, PORT);
-	
 	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
 		String[] ops = { "-", "+", "/", "*", "exit"};
 		HashSet<String> listAlloved = new HashSet<>(Arrays.asList(ops));
-		
 		while (true) {
 			System.out.println("Enter operation");
 			String operation = scanner.nextLine();

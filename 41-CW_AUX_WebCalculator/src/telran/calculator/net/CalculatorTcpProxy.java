@@ -1,67 +1,61 @@
 package telran.calculator.net;
 
-import java.io.*;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.stream.Stream;
-
 import telran.calculator.ICalculator;
-
+import java.net.*;
+import java.io.*;
 public class CalculatorTcpProxy implements ICalculator {
-	Socket socket;
-	ObjectOutputStream writer;
-	ObjectInputStream reader;
-	
-	
+Socket socket;
+ObjectOutputStream writer;
+ObjectInputStream reader;
 
-	private Integer sendCalculatorRequest(String type, Integer[] params) {
+	@Override
+	public Integer sum(int a, int b) {
+		String type = "+";
+		return sendCalculatorRequest(a, b, type);
+		
+	}
+
+	private int sendCalculatorRequest(int a, int b, String type) {
 		try {
-			writer.writeObject(new RequestCalculator(type, params));
-			ResponseCalculator response = (ResponseCalculator)reader.readObject();
-			if(response.code.equals("success") ) {
+			writer.writeObject(new RequestCalculator(type, new Integer[] {a, b}));
+			ResponseCalculator response = (ResponseCalculator) reader.readObject();
+			if(response.code.equals("success")) {
 				return Integer.parseInt(response.res);
-			}else {
+			} else {
 				throw new RuntimeException(response.res);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
-		} 
-	}
-	
-	@Override
-	public Integer sum(int a, int b) {
-		String type = "+";
-		Integer[] params = new Integer[]{a,b};
-		return sendCalculatorRequest(type, params);
+		}
 		
 	}
+
 	@Override
 	public Integer subtract(int a, int b) {
 		String type = "-";
-		Integer[] params = new Integer[]{a,b};
-		return sendCalculatorRequest(type, params);
+		return sendCalculatorRequest(a, b, type);
+	}
+
+	@Override
+	public Integer divide(int a, int b) {
+		String type ="/";
+		return sendCalculatorRequest(a, b, type);
 	}
 
 	@Override
 	public Integer multiply(int a, int b) {
 		String type = "*";
-		Integer[] params = new Integer[]{a,b};
-		return sendCalculatorRequest(type, params);
+		return sendCalculatorRequest(a, b, type);
 	}
 
-	@Override
-	public Integer divide(int a, int b) {
-		String type = "/";
-		Integer[] params = new Integer[]{a,b};
-		return sendCalculatorRequest(type, params);
-	}
-	
-	public CalculatorTcpProxy(String host, Integer port)  {
+	public CalculatorTcpProxy(String host, int port) {
 		try {
 			socket = new Socket(host, port);
 			writer = new ObjectOutputStream(socket.getOutputStream());
 			reader = new ObjectInputStream(socket.getInputStream());
-		} catch (Exception e) {
+			
+			
+		}catch(Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
