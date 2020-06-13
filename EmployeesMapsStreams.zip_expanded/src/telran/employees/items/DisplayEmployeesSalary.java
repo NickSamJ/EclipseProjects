@@ -7,7 +7,6 @@ public class DisplayEmployeesSalary extends EmployeesItem {
 
 	public DisplayEmployeesSalary(EmployeesService employees, InputOutput io) {
 		super(employees, io);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

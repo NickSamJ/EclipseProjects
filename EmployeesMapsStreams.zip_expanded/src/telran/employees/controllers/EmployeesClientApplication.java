@@ -1,9 +1,7 @@
 package telran.employees.controllers;
 
 import telran.employees.api.EmployeesService;
-import telran.employees.items.AddEmployee;
-import telran.employees.items.DisplayEmployeesSalary;
-import telran.employees.items.ExitEmployeesItem;
+import telran.employees.items.*;
 import telran.employees.service.EmployeesServiceMapsImpl;
 import telran.menu.ConsoleInputOutput;
 import telran.menu.InputOutput;
@@ -17,6 +15,8 @@ public static void main(String[] args) {
 			Item[] items = {
 					new AddEmployee(employees, io),
 					new DisplayEmployeesSalary(employees, io),
+					new GetEmployee(employees, io),
+					new RemoveEmployee(employees, io),
 					new ExitEmployeesItem(employees, io),
 					
 			};

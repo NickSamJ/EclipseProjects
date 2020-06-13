@@ -10,11 +10,11 @@ public class ResponseJava implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public TcpResponseCode code;
-	public Serializable responseDta;
-	public ResponseJava(TcpResponseCode code, Serializable responseDta) {
+	public Serializable responseData;
+	public ResponseJava(TcpResponseCode code, Serializable responseData) {
 		super();
 		this.code = code;
-		this.responseDta = responseDta;
+		this.responseData = responseData;
 	}
 
 }

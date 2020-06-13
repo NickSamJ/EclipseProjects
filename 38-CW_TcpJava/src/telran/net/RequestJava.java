@@ -11,10 +11,10 @@ public class RequestJava implements Serializable {
 	
 	public RequestJava(String requesrType, Serializable requestData) {
 		super();
-		this.requesrType = requesrType;
+		this.requestType = requesrType;
 		this.requestData = requestData;
 	}
-	public String requesrType;
+	public String requestType;
 	public Serializable requestData;
 
 }

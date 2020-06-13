@@ -28,6 +28,7 @@ int port;
 		this.port = port;
 		try {
 			serverSocket = new ServerSocket(port);
+			System.out.println("Server is listening on port "+ port);
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}

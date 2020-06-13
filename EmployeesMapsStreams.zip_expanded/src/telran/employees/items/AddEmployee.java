@@ -11,7 +11,6 @@ public class AddEmployee extends EmployeesItem {
 
 	public AddEmployee(EmployeesService employees, InputOutput io) {
 		super(employees, io);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

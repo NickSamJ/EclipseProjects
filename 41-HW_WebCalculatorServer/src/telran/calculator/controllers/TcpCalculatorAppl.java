@@ -1,79 +1,48 @@
 package telran.calculator.controllers;
 
 import java.io.*;
-import java.net.*;
 
-import telran.calculator.Calculator;
-import telran.calculator.net.RequestCalculator;
-import telran.calculator.net.ResponseCalculator;
+import telran.calculator.*;
+import telran.net.*;
+import telran.net.server.ServerJava;
 
 public class TcpCalculatorAppl {
-	private static final int PORT = 4000;
-	private static ServerSocket serverSocket;
+	private static final int PORT = 4040;
+	private static ICalculator calc = new Calculator();
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		serverSocket = new ServerSocket(PORT);
-		System.out.println("Socket was launched on the port " + PORT);
-		while (true) {
-			Socket socket = serverSocket.accept();
-			runServer(socket);
-		}
-
+	public static void main(String[] args) {
+		
+		ServerJava server = new ServerJava(TcpCalculatorAppl::getResponse, PORT);
+		server.run();
 	}
 
-	public static void runServer(Socket socket) throws IOException, ClassNotFoundException {
 
-		try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());) {
+	private static ResponseJava getResponse(RequestJava request) {
+		TcpResponseCode code = TcpResponseCode.OK;
+		Serializable responseData = null;
+		
+		try {
+			Integer[] operands = (Integer[]) request.requestData;
+			int op1 = operands[0];
+			int op2 = operands[1];
+			Integer res = null;
 			
-			while (true) {
-				
-				RequestCalculator request = (RequestCalculator) in.readObject();
-				ResponseCalculator res = makeCalculations(request);
-	
-				out.writeObject(res);
-			}				
-		} catch (Exception e) {
-			System.out.println("Client closed connection");
-		}
-
-	}
-
-	private static ResponseCalculator makeCalculations(RequestCalculator request) {
-		Calculator calc = new Calculator();
-		String type = request.type;
-		Integer a = request.numbers[0];
-		Integer b = request.numbers[1];
-		String code = "success";
-		ResponseCalculator res;
-
-		String answer = "";
-
-		switch (type) {
-		case "-": {
-			answer = Integer.toString(calc.subtract(a, b));
-			break;
-		}
-		case "+": {
-			answer = Integer.toString(calc.sum(a, b));
-			break;
-		}
-		case "*": {
-			answer = Integer.toString(calc.multiply(a, b));
-			break;
-		}
-		case "/": {
-			if (b.equals(0)) {
-				answer = "Can't divide by zero";
-				code = "error";
-			} else {
-				answer = Integer.toString(calc.divide(a, b));
+			switch (request.requestType) {
+				case "+": {res = calc.sum(op1, op2);break;}
+				case "-": {res = calc.subtract(op1, op2);break;}
+				case "multiply": {res = calc.multiply(op1, op2);break;}
+				case "/": {res = calc.divide(op1, op2); break;}
+				default: throw new RuntimeException("Unknown operation");
 			}
-			break;
-		}
+			if(responseData == null) {
+				responseData = res;
+			}
+			
+		} catch (Exception e) {
+			code = TcpResponseCode.WRONG_REQUEST;
+			responseData = e.getMessage();
 		}
 
-		res = new ResponseCalculator(code, answer);
-		return res;
+		return new ResponseJava(code, responseData);
 	}
 }

@@ -15,7 +15,6 @@ public class ExitEmployeesItem extends EmployeesItem {
 
 	@Override
 	public String displayName() {
-		
 		return "Exit";
 	}
 
