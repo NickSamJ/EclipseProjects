@@ -15,7 +15,8 @@ int port;
 			while(true) {
 				Socket socket = serverSocket.accept();
 				ServerClientJava client = new ServerClientJava(socket, protocol);
-				client.run();
+				Thread thread = new Thread(client);
+				thread.start();
 						
 			}
 		} catch (IOException e) {

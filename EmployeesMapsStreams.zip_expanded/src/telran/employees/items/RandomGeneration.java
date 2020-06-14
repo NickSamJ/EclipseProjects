@@ -3,6 +3,7 @@ package telran.employees.items;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 import telran.employees.api.EmployeesService;
@@ -29,13 +30,22 @@ public class RandomGeneration extends EmployeesItem {
 		int maxId = io.inputInteger("Enter maximum id value", minId+1, 999999 );
 		
 		int idDiff = maxId - minId;
-		int[] ids;
+		Integer[] ids = new Integer[nEmployees];
 		if(nEmployees > idDiff) {
 			return;
 		}
-		Employee testEmployee;
-		for(int i = 0; i < nEmployees; i++) {
-			
+		Employee testEmployee = null;
+		int counter = 0;
+		while(counter<nEmployees) {
+			testEmployee = employees.getEmployee(minId);
+			if (minId == maxId) {
+				return;
+			}
+			if(testEmployee == null) {
+				ids[counter] = minId++;
+				counter++;
+				continue;
+			}
 		}
 		
 		
@@ -44,32 +54,47 @@ public class RandomGeneration extends EmployeesItem {
 		
 		LocalDate minDate = io.inputDate("Enter min Birth date");
 		
-		LocalDate maxDate;
-		while(Period.between(minDate, maxDate).getDays()<=0) {
+		LocalDate maxDate = LocalDate.MIN;
+		while(maxDate.toEpochDay() - minDate.toEpochDay()<=0) {
+			System.out.println(Period.between(minDate, maxDate).getDays());
 			maxDate = io.inputDate("Enter max Birth date");
 		}
 		
 		Employee[] randomEmployees = new Employee[nEmployees];
-		Employee empl =  new Employee(id, salary, company, birthDate, name);
+//		Employee empl =  new Employee(id, salary, company, birthDate, name);
 		Random random = new Random();
 		for(int i = 0; i < nEmployees; i++) {
 			
 			
 			randomEmployees[i]  = new Employee(
-					randId(minId, maxId), 
+//					randId(minId, maxId),
+					ids[i],
 					randSalary(minSalary, maxSalary),
 					randComp(nCompanies),
-					randBirthDate(),
-					"name " + random.nextInt(20)
+					randBirthDate(minDate, maxDate),
+					"Name" + random.nextInt(19)+1
 					);
 		}
 		
+		for(Employee e : randomEmployees) {
+			io.displayLine(e);
+		}
+	}
+	private LocalDate randBirthDate(LocalDate minDate, LocalDate maxDate) {
+		long minDay = minDate.toEpochDay();
+	    long maxDay = maxDate.toEpochDay();
+	    long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+	    LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
+		return randomDate;
 	}
 	
-	private long randId(int minId, int maxId) {
-		
-		
-		return 0;
+	
+	private String randComp(int nCompanies) {
+		return "Test comp";
+	}
+
+	private int randSalary(int minSalary, int maxSalary) {
+		return getRandInt(minSalary, maxSalary);
 	}
 
 	public int getRandInt(int min, int max) {

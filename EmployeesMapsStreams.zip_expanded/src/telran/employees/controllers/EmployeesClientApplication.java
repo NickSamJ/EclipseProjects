@@ -17,6 +17,7 @@ public static void main(String[] args) {
 					new DisplayEmployeesSalary(employees, io),
 					new GetEmployee(employees, io),
 					new RemoveEmployee(employees, io),
+					new RandomGeneration(employees, io),
 					new ExitEmployeesItem(employees, io),
 					
 			};
