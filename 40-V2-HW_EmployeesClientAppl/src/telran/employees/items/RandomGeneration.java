@@ -45,23 +45,42 @@ public class RandomGeneration extends EmployeesItem {
 		
 		
 		EmployeesReturnCodes code;
+		Employee testEmpl;
 		int employeesAdded=0;
-		
-		for(int i = 0; i < nEmployees; i++) {			
-			
-			int userId = minId + i;
-			
-			code = employees.addEmployee(new Employee(
-					minId++,
-					randSalary(minSalary, maxSalary),
-					randCompany(nCompanies),
-					randBirthDate(minDate, maxDate),
-					randName()
-				));
-			if(code == EmployeesReturnCodes.OK) {
+		int currentId = minId;
+		while(employeesAdded <= nEmployees && currentId != maxId) {
+			testEmpl = employees.getEmployee(currentId);
+			if(testEmpl == null) {
+				employees.addEmployee(new Employee(
+						currentId++,
+						randSalary(minSalary, maxSalary),
+						randCompany(nCompanies),
+						randBirthDate(minDate, maxDate),
+						randName()
+					));
 				employeesAdded++;
+			}else {
+				currentId++;
 			}
 		}
+		
+/*Simple random id generation*/
+		
+//		for(int i = 0; i < nEmployees; i++) {			
+//			
+//			int userId = minId + i;
+//			
+//			code = employees.addEmployee(new Employee(
+//					minId++,
+//					randSalary(minSalary, maxSalary),
+//					randCompany(nCompanies),
+//					randBirthDate(minDate, maxDate),
+//					randName()
+//				));
+//			if(code == EmployeesReturnCodes.OK) {
+//				employeesAdded++;
+//			}
+//		}
 		io.displayLine(employeesAdded + " Employees was sucessfully added");
 	}
 	
