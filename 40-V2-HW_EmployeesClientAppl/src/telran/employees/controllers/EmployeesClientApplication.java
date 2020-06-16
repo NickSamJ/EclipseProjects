@@ -21,6 +21,12 @@ public static void main(String[] args) {
 					new DisplayEmployeesSalary(employees, io),
 					new GetEmployee(employees, io),
 					new RemoveEmployee(employees, io),
+					new GetCompaniesAvgSalary(employees, io),
+					new GetCompaniesGreaterAvgSalaryItem(employees, io),
+					new GetEmployeesAgesItem(employees, io),
+					new GetEmployeesGroupedBySalaryItem(employees, io),
+					new UpdateCompanyItem(employees, io),
+					new UpdateEmployeeSalary(employees, io),
 					new RandomGeneration(employees, io),
 					new ExitEmployeesItem(employees, io),
 					

@@ -3,9 +3,9 @@ package telran.employees.items;
 import telran.employees.api.EmployeesService;
 import telran.menu.InputOutput;
 
-public class GetEMployeesAgesItem extends EmployeesItem {
+public class GetEmployeesAgesItem extends EmployeesItem {
 
-	public GetEMployeesAgesItem(EmployeesService employees, InputOutput io) {
+	public GetEmployeesAgesItem(EmployeesService employees, InputOutput io) {
 		super(employees, io);
 	}
 

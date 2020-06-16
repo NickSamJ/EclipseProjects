@@ -47,9 +47,7 @@ public class RandomGeneration extends EmployeesItem {
 		EmployeesReturnCodes code;
 		int employeesAdded=0;
 		
-		for(int i = 0; i < nEmployees; i++) {
-			io.displayLine( "counter - " + i + "nEmployees: " + nEmployees);
-			
+		for(int i = 0; i < nEmployees; i++) {			
 			
 			int userId = minId + i;
 			

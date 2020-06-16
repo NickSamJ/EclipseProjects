@@ -3,9 +3,9 @@ package telran.employees.items;
 import telran.employees.api.EmployeesService;
 import telran.menu.InputOutput;
 
-public class getCompaniesAvgSalary extends EmployeesItem {
+public class GetCompaniesAvgSalary extends EmployeesItem {
 
-	public getCompaniesAvgSalary(EmployeesService employees, InputOutput io) {
+	public GetCompaniesAvgSalary(EmployeesService employees, InputOutput io) {
 		super(employees, io);
 	}
 
