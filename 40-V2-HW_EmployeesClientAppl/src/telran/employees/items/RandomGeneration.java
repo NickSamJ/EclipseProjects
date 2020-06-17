@@ -48,7 +48,7 @@ public class RandomGeneration extends EmployeesItem {
 		Employee testEmpl;
 		int employeesAdded=0;
 		int currentId = minId;
-		while(employeesAdded <= nEmployees && currentId != maxId) {
+		while(employeesAdded < nEmployees && currentId != maxId) {
 			testEmpl = employees.getEmployee(currentId);
 			if(testEmpl == null) {
 				employees.addEmployee(new Employee(

@@ -19,7 +19,8 @@ public class DisplayEmployeesSalary extends EmployeesItem {
 	public void perform() {
 		int salaryFrom = io.inputInteger("Enter salary from");
 		int salaryTo = io.inputInteger("Enter salary to", salaryFrom, Integer.MAX_VALUE);
-		io.displayLine(employees.getEmployeesSalary(salaryFrom, salaryTo));
+		employees.getEmployeesSalary(salaryFrom, salaryTo).forEach(e -> io.displayLine(e));
+//		io.displayLine(employees.getEmployeesSalary(salaryFrom, salaryTo));
 	}
 
 }
