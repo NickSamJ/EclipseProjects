@@ -1,41 +1,39 @@
 package telran.threads.items;
 
 import telran.menu.InputOutput;
-import telran.threads.realisation.AbstractRaceThread;
-import telran.threads.realisation.RaceThread;
+import telran.threads.realisation.RaceThreadSimpleResult;
 
-public class ThreadRaceItem extends ThreadItem {
+public class ThreadRaceSimpleItem extends ThreadItem {
 
-	public ThreadRaceItem(InputOutput io) {
+	public ThreadRaceSimpleItem(InputOutput io) {
 		super(io);
 	}
 
 	@Override
 	public String displayName() {
 		
-		return "Start threads race";
+		return "Start race and show winner";
 	}
 
 	@Override
 	public void perform() {
 		int nThreads = io.inputInteger("Enter number of threads");
 		int distance = io.inputInteger("Enter distance");
-		int winner;
 		
-		RaceThread[] threads = new RaceThread[nThreads];
+		RaceThreadSimpleResult[] threads = new RaceThreadSimpleResult[nThreads];
 		for(int i = 0; i<nThreads; i++) {
-			threads[i] = new RaceThread(""+(i+1), distance, io);
+			threads[i] = new RaceThreadSimpleResult(""+(i+1), distance, io);
 			threads[i].start();	
 		}
-		for(RaceThread t : threads) {
+		for(RaceThreadSimpleResult t : threads) {
 			try {
 				t.join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		winner = AbstractRaceThread.getWinner();
+		int winner = RaceThreadSimpleResult.getWinner();
 		io.displayLine(String.format("Thread #%d Is winner", winner));
-		AbstractRaceThread.resetWinner();
+		RaceThreadSimpleResult.resetWinner();
 	}
 }

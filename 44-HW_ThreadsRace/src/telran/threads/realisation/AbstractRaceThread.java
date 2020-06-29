@@ -10,4 +10,7 @@ public AbstractRaceThread(String name) {
 public static int getWinner() {
 	return(winner);
 }
+public static void resetWinner() {
+	winner = 0;
+}
 }
