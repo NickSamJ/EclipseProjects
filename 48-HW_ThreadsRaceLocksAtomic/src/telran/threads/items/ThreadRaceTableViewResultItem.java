@@ -35,14 +35,14 @@ public class ThreadRaceTableViewResultItem extends ThreadItem {
 		
 	}
 	private void printHeading() {
-		io.displayLine("___________________________________________");
-		io.displayLine("#   | Thread id | Execution time | Waiting");
-		io.displayLine("-------------------------------------------");
+		io.displayLine("_________________________________");
+		io.displayLine("#   | Thread id | Execution time ");
+		io.displayLine("---------------------------------");
 	}
 	private void printRaceStats() {
 		int place = 1;
 		for(Integer[] line : RaceThreadTableStats.order) {
-			io.displayLine(String.format("%-4d| %-10d| %-14d | %-7d", place++, line[0], line[1], line[1]));
+			io.displayLine(String.format("%-4d| %-10d| %-14d ", place++, line[0], line[1]));
 		}
 		
 	}

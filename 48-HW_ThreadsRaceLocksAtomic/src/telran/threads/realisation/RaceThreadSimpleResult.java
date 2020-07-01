@@ -1,12 +1,13 @@
 package telran.threads.realisation;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import telran.menu.InputOutput;
 
 public class RaceThreadSimpleResult extends Thread{
 	int distance;
 	InputOutput io;
-	private static int winner = 0;
-	private static Object MUTEX = new Object();
+	private static AtomicInteger winner = new AtomicInteger(0);
 	
 	public RaceThreadSimpleResult(String name, int distance, InputOutput io) {
 		super(name);
@@ -16,21 +17,14 @@ public class RaceThreadSimpleResult extends Thread{
 	
 	@Override 
 	public void run() {		
-		for(int i = 0; i<distance; i++) {
+		int threadId = Integer.parseInt(getName());
+		for(int i = 0; i < distance; i++) {
 			try {
 				sleep(getRandInt(2, 5));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			io.displayLine(getName());
+			} catch (InterruptedException e) {}
+			io.displayLine(threadId);
 		}
-		
-		synchronized (MUTEX) {	
-			if(winner==0) {
-				winner = Integer.parseInt(getName());
-			}
-		}
-		
+		winner.compareAndSet(0, threadId);		
 	}
 
 	private long getRandInt(long min, long max) {
@@ -38,9 +32,9 @@ public class RaceThreadSimpleResult extends Thread{
 	}
 	
 	public static void resetWinner() {
-		winner = 0;
+		winner.set(0);
 	}
 	public static int getWinner() {
-		return winner;
+		return winner.get();
 	}
 }
