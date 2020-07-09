@@ -16,17 +16,12 @@ private static final int PORT = 4040;
 
 	
 	public static void main(String[] args) {
-		HashMap<Long, Employee> employeesMap = new HashMap<>();
-		HashMap<String, List<Employee>> employeesCompany = new HashMap<>();
-		TreeMap<Integer, List<Employee>> employeesAge = new TreeMap<>();
-     	TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>();
+     	EmployeesServiceMapsImpl employeesService = EmployeesServiceMapsImpl.getEmployeesService(); 
 		
-		EmployeesServiceMapsImpl employees = new EmployeesServiceMapsImpl(employeesMap, employeesCompany, employeesAge, employeesSalary);
-		
-		ProtocolJava protocol = new EmployeesOperationsProtocol(employees);
+		ProtocolJava protocol = new EmployeesOperationsProtocol(employeesService);
 		ServerJava server = new ServerJava(protocol , PORT);
 		Thread serverThread = new Thread(server);
-//		server.run();
+
 		serverThread.start();
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
@@ -38,5 +33,7 @@ private static final int PORT = 4040;
 		}
 		
 		server.stop();
+		employeesService.save();
+	
 	}
 }
